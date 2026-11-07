@@ -2536,7 +2536,11 @@ const toggleMode = () => setMode(getMode() === 'dark' ? 'light' : 'dark');
     if (on) secretUnit.removeAttribute('inert'); else secretUnit.setAttribute('inert', '');
   }
   window.openDoor = i => {
-    if (busy || inWall) return;
+    if (busy) return;
+    if (inWall){
+      if (i !== cur) switchDoor(i);
+      return;
+    }
     const top = MOB.matches ? mobY(Math.min(i, 3)) : sec.getBoundingClientRect().top + pageYOffset;
     const far = Math.abs(pageYOffset - top) > 4;
     if (far){ if (lenis) lenis.scrollTo(top, { duration: .9, easing: x => 1 - Math.pow(1 - x, 3) }); else scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' }); }
@@ -2626,7 +2630,10 @@ const toggleMode = () => setMode(getMode() === 'dark' ? 'light' : 'dark');
         setTimeout(() => {
           inWall = true;
           wallv.classList.add('live');
-          try { history.pushState({ wall: 1 }, '', ROUTES[i]); pushed = true; } catch (e) { pushed = false; }
+          try {
+            if (pushed) history.replaceState({ wall: 1 }, '', ROUTES[i]);
+            else { history.pushState({ wall: 1 }, '', ROUTES[i]); pushed = true; }
+          } catch (e) { pushed = false; }
           document.title = TITLES[i] + ' — Divyatej';
           toWall({ wall: 'enter' });
           try { frame.contentWindow.focus(); } catch (e) {}
@@ -2638,6 +2645,62 @@ const toggleMode = () => setMode(getMode() === 'dark' ? 'light' : 'dark');
     }
   }
 
+  // Smooth cinematic door-to-door switching in the hallway
+  function switchDoor(to){
+    if (to === cur || to < 0 || to >= units.length) return;
+    if (busy) cancelAnimationFrame(walkRaf);
+    busy = true;
+    warm(to);
+
+    const prev = cur;
+    const dFrom = doorsState[prev];
+
+    // Fade out current room iframe immediately
+    wallv.classList.remove('live');
+    toWall({ wall: 'exit' });
+
+    // Swing current door shut immediately as camera pulls back
+    dFrom?.s.set(0);
+
+    // Smooth camera pullback from current door transform to neutral hallway
+    const from = sec.style.transform;
+    const m = /translate\(([-\d.]+)px, ([-\d.]+)px\) scale\(([\d.]+)\)/.exec(from) || [0, 0, 0, 1];
+    const X = +m[1], Y = +m[2], S = +m[3];
+    const t0 = performance.now();
+    const D = reduced ? 1 : 650;
+    const ease = x => 1 - Math.pow(1 - x, 3);
+
+    const pullStep = now => {
+      const p = Math.min(1, (now - t0) / D);
+      const e = ease(p);
+      const sc = Math.exp(Math.log(S) * (1 - e));
+      sec.style.transform = `translate(${X * (1 - e)}px, ${Y * (1 - e)}px) scale(${sc})`;
+      if (p < 1) {
+        walkRaf = requestAnimationFrame(pullStep);
+      } else {
+        cancelAnimationFrame(walkRaf);
+        sec.style.transform = '';
+        sec.classList.remove('through');
+        sec.style.transformOrigin = '';
+        wallv.classList.remove('on');
+
+        if (to === SECRET && !sec.classList.contains('reveal')) reveal(true);
+        else if (prev === SECRET && to !== SECRET) reveal(false);
+
+        // Swing open target door!
+        const dTo = doorsState[to];
+        dTo.s.set(ANG_WALK / ANG);
+
+        // Wait ~200ms for door leaf to swing open, then zoom forward into target doorway!
+        setTimeout(() => {
+          busy = false;
+          through(to);
+        }, reduced ? 0 : 200);
+      }
+    };
+    walkRaf = requestAnimationFrame(pullStep);
+  }
+
   // leaving the room: photos sink back into the dark, you back out of the doorway, the door swings shut
   function leaveWall(){
     if (!inWall) return;
@@ -2646,40 +2709,39 @@ const toggleMode = () => setMode(getMode() === 'dark' ? 'light' : 'dark');
     document.title = DOC_TITLE;
     const d = doorsState[cur];
     toWall({ wall: 'exit' });
+    d?.s.set(0);
     setTimeout(() => {
       wallv.classList.remove('on');
-      setTimeout(() => {
-        cancelAnimationFrame(walkRaf);
-        const from = sec.style.transform, back = { finished: new Promise(res => {
-          const m = /translate\(([-\d.]+)px, ([-\d.]+)px\) scale\(([\d.]+)\)/.exec(from) || [0, 0, 0, 1];
-          const X = +m[1], Y = +m[2], S = +m[3], t0 = performance.now(), D = reduced ? 1 : 1300;
-          const ease = x => 1 - Math.pow(1 - x, 3);
-          const step = now => {
-            const p = Math.min(1, (now - t0) / D), e = ease(p);
-            const sc = Math.exp(Math.log(S) * (1 - e));
-            sec.style.transform = `translate(${X * (1 - e)}px, ${Y * (1 - e)}px) scale(${sc})`;
-            if (p < 1) requestAnimationFrame(step); else { sec.style.transform = ''; res(); }
-          };
-          requestAnimationFrame(step);
-        }) };
-        back.finished.then(() => {
-          cancelAnimationFrame(walkRaf); sec.style.transform = ''; dark.hidden = true; shade.hidden = true;
-          sec.classList.remove('through', 'lift'); sec.style.transformOrigin = '';
-          d.s.set(0);
-          $('#cord')?.classList.remove('away'); $('.hdr')?.classList.remove('away');
-          busy = false;
-          holdScroll(false);
-          toWall({ wall: 'reset' });
-          if (afterLeave){ const f = afterLeave; afterLeave = null; setTimeout(f, 60); }
-          if (cur === SECRET){
-            // back out, then the wall slides back and the Photography door is hidden again
-            if (MOB.matches){ mForce = -1; mFromScroll(); mApply(); setTimeout(() => reveal(false), reduced ? 0 : 580); }
-            else setTimeout(() => reveal(false), reduced ? 0 : 500);
-            units[SECRET - 1].querySelector('.doorway').focus({ preventScroll: true });
-          } else d.way.focus({ preventScroll: true });
-        });
-      }, reduced ? 0 : 360);
-    }, reduced ? 0 : 520);
+      cancelAnimationFrame(walkRaf);
+      const from = sec.style.transform, back = { finished: new Promise(res => {
+        const m = /translate\(([-\d.]+)px, ([-\d.]+)px\) scale\(([\d.]+)\)/.exec(from) || [0, 0, 0, 1];
+        const X = +m[1], Y = +m[2], S = +m[3], t0 = performance.now(), D = reduced ? 1 : 850;
+        const ease = x => 1 - Math.pow(1 - x, 3);
+        const step = now => {
+          const p = Math.min(1, (now - t0) / D), e = ease(p);
+          const sc = Math.exp(Math.log(S) * (1 - e));
+          sec.style.transform = `translate(${X * (1 - e)}px, ${Y * (1 - e)}px) scale(${sc})`;
+          if (p < 1) requestAnimationFrame(step); else { sec.style.transform = ''; res(); }
+        };
+        requestAnimationFrame(step);
+      }) };
+      back.finished.then(() => {
+        cancelAnimationFrame(walkRaf); sec.style.transform = ''; dark.hidden = true; shade.hidden = true;
+        sec.classList.remove('through', 'lift'); sec.style.transformOrigin = '';
+        d?.s.set(0);
+        $('#cord')?.classList.remove('away'); $('.hdr')?.classList.remove('away');
+        busy = false;
+        holdScroll(false);
+        toWall({ wall: 'reset' });
+        if (afterLeave){ const f = afterLeave; afterLeave = null; setTimeout(f, 60); }
+        if (cur === SECRET){
+          // back out, then the wall slides back and the Photography door is hidden again
+          if (MOB.matches){ mForce = -1; mFromScroll(); mApply(); setTimeout(() => reveal(false), reduced ? 0 : 580); }
+          else setTimeout(() => reveal(false), reduced ? 0 : 500);
+          units[SECRET - 1].querySelector('.doorway').focus({ preventScroll: true });
+        } else d.way.focus({ preventScroll: true });
+      });
+    }, reduced ? 0 : 140);
   }
   const DOC_TITLE = document.title;
   let afterLeave = null;
@@ -2690,10 +2752,21 @@ const toggleMode = () => setMode(getMode() === 'dark' ? 'light' : 'dark');
       const to = String(e.data.to || '');
       if (to === 'contact'){ openModal(); return; }                         // the request form opens right over the room
       const n = to.startsWith('door:') ? +to.slice(5) : -1;
-      if (n === cur) return;
-      afterLeave = () => { if (n >= 0) window.openDoor(n); else scrollToId(to === 'about' ? 'about' : 'home'); };
-    } else if (e.data.wall !== 'close') return;
-    if (pushed){ pushed = false; history.back(); } else leaveWall();
+      if (n >= 0){
+        if (n === cur) return;
+        switchDoor(n);
+        return;
+      }
+      afterLeave = () => { scrollToId(to === 'about' ? 'about' : 'home'); };
+      if (pushed){ pushed = false; history.back(); } else leaveWall();
+      return;
+    } else if (e.data.wall === 'door'){
+      const n = +e.data.door;
+      if (n >= 0 && n !== cur) switchDoor(n);
+      return;
+    } else if (e.data.wall === 'close' || e.data.wall === 'back'){
+      if (pushed){ pushed = false; history.back(); } else leaveWall();
+    }
   });
   addEventListener('popstate', () => { if (inWall && !(history.state && history.state.wall)){ pushed = false; leaveWall(); } });
   addEventListener('keydown', e => { if (e.key === 'Escape' && inWall && $('#modal').hidden && $('#navm').hidden){ if (pushed){ pushed = false; history.back(); } else leaveWall(); } });

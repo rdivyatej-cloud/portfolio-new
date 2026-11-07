@@ -57,13 +57,60 @@ body{background:transparent;overflow-x:hidden}
 .card .card__info>*, .card .stage{opacity:1 !important; transform:none !important;}
 
 /* Navigation Bar */
-.rn{position:sticky;top:0;z-index:40;background:var(--bg);box-shadow:0 1px 0 rgba(var(--fg-rgb),.1)}
-.rn__in{max-width:88rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.1rem max(16px,env(safe-area-inset-right)) 1.1rem max(16px,env(safe-area-inset-left))}
-.rn__back{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-size:13px;font-weight:500;border:1px solid rgba(var(--fg-rgb),.15);background:rgba(var(--fg-rgb),.04);color:var(--fg);cursor:pointer;text-decoration:none;transition:background .2s,color .2s}
-.rn__back:hover{background:var(--fg);color:var(--bg)}
-.rn__back svg{width:14px;height:14px}
-.rn__right{display:flex;align-items:center;gap:.75rem}
-.chip{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-size:13px;font-weight:500;border:1px solid rgba(var(--fg-rgb),.12);background:rgba(var(--fg-rgb),.03);color:var(--fg);text-decoration:none}
+.rn{position:sticky;top:0;z-index:40;background:var(--bg);box-shadow:0 1px 0 rgba(var(--fg-rgb),.08);transition:background .35s ease,box-shadow .35s ease}
+.rn.stuck{box-shadow:0 1px 0 rgba(var(--fg-rgb),.15)}
+.rn__in{max-width:88rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.1rem max(16px,env(safe-area-inset-right)) 1.1rem max(16px,env(safe-area-inset-left));transition:padding .35s ease}
+.rn nav ul{display:none;list-style:none;margin:0;padding:0;gap:1.4rem;align-items:center;white-space:nowrap}
+.rn nav button{padding:0;border:0;background:none;color:var(--fg);font:inherit;font-size:1rem;font-weight:500;opacity:.8;cursor:pointer;transition:opacity .2s}
+.rn nav button:hover,.rn nav button[aria-current]{opacity:1}
+.rn nav button[aria-current]{text-decoration:underline;text-underline-offset:.35em;text-decoration-thickness:1px}
+.rn__clock{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;border-radius:999px;border:1px solid rgba(var(--fg-rgb),.12);font-size:.875rem;font-weight:500;white-space:nowrap}
+.rn__clock span{color:rgba(var(--fg-rgb),.68)}
+.rn__menu{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:2.75rem;padding:0 1.05rem 0 .95rem;font:500 .9375rem/1 'Onest',ui-sans-serif,system-ui,sans-serif;border-radius:999px;border:1px solid rgba(var(--fg-rgb),.12);background:none;color:var(--fg);cursor:pointer}
+.rn__menu svg{width:1.1rem;height:1.1rem}
+
+/* Fullscreen Menu on mobile */
+.rn__panel{position:fixed;inset:0;z-index:110;display:flex;flex-direction:column;
+  padding:max(1rem,env(safe-area-inset-top)) max(1.25rem,env(safe-area-inset-right)) max(1.5rem,env(safe-area-inset-bottom)) max(1.25rem,env(safe-area-inset-left));
+  background:var(--bg);color:var(--fg);visibility:hidden;opacity:0;
+  transition:opacity .4s cubic-bezier(.4,0,.2,1),visibility 0s linear .4s}
+.rn.open .rn__panel{visibility:visible;opacity:1;transition-delay:0s}
+.rn__phead{display:flex;align-items:center;justify-content:space-between;min-height:2.75rem;margin-bottom:auto}
+.rn__plbl{font:600 .75rem/1 'Onest',ui-sans-serif,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(var(--fg-rgb),.5)}
+.rn__pclose{display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border-radius:999px;
+  border:1px solid rgba(var(--fg-rgb),.14);background:none;color:var(--fg);cursor:pointer}
+.rn__pclose svg{width:1.15rem;height:1.15rem}
+.rn__plist{display:flex;flex-direction:column;justify-content:center;gap:.25rem;padding-block:2rem}
+.rn__plist button{display:block;width:100%;padding:.45rem 0;border:0;background:none;color:var(--fg);
+  font:600 clamp(1.8rem,7vw,2.5rem)/1.1 'Onest',ui-sans-serif,system-ui,sans-serif;letter-spacing:-.03em;text-align:left;cursor:pointer}
+.rn__plist button[aria-current]{color:var(--accent)}
+.rn__pfoot{margin-top:auto;padding-top:1.25rem;border-top:1px solid rgba(var(--fg-rgb),.1);
+  font:500 .8125rem/1.4 'Onest',ui-sans-serif,system-ui,sans-serif;color:rgba(var(--fg-rgb),.55)}
+html.rn-lock{overflow:hidden}
+
+@media (min-width:1100px){
+  .rn nav ul{display:flex}
+  .rn__menu,.rn__panel{display:none!important}
+}
+@media (max-width:1099.98px){
+  .rn nav{display:none}
+  .rn__clock{display:none}
+  .rn__menu{order:99;margin-left:auto}
+}
+
+/* Floating "Back to the doors" pill on bottom left */
+.backd{position:fixed;left:max(1.5rem,env(safe-area-inset-left));bottom:max(1.5rem,calc(env(safe-area-inset-bottom) + 1rem));top:auto;z-index:60;
+  display:inline-flex;align-items:center;gap:.5rem;height:3rem;padding:0 1.25rem 0 1rem;
+  border-radius:999px;border:1px solid rgba(var(--fg-rgb),.15);
+  background:var(--bd-float,rgba(26,24,24,.92));color:var(--bd-floatfg,#E8E4E0);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:0 12px 30px -12px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08);
+  font:500 .9375rem/1 'Onest',ui-sans-serif,system-ui,sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap;
+  transition:background .25s ease,transform .25s ease}
+.backd svg{width:1.05rem;height:1.05rem;transition:transform .3s ease}
+.backd:hover{background:var(--bd-float-hover,#000);transform:translateY(-2px)}
+.backd:hover svg{transform:translateX(-3px)}
+html[data-mode="dark"] .backd{--bd-float:rgba(232,228,224,.92);--bd-floatfg:#1A1818;--bd-float-hover:#FFF}
 
 /* Footer */
 .sf{padding:80px 0 40px;background:var(--bg);border-top:1px solid var(--card-line);position:relative;z-index:1}
@@ -86,23 +133,40 @@ body{background:transparent;overflow-x:hidden}
 </head>
 <body>
 <div class="glow"></div>
-<header class="rn">
+<header class="rn" id="rn">
   <div class="rn__in">
-    <a href="../#doors" class="rn__back" title="Back to doors">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      <span>Back to doors</span>
-    </a>
-    <div class="rn__right">
-      <a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf" target="_blank" rel="noopener noreferrer" class="chip">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        <span>Download CV</span>
-      </a>
-      <a href="../#contact" class="chip">
-        <span>Get in touch</span>
-      </a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><button data-nav="home">Home</button></li>
+        <li><button data-nav="door:0">Web Development</button></li><li><button data-nav="door:1">App Development</button></li><li><button data-nav="door:2">UI/UX Design</button></li><li><button data-nav="door:3">Graphic Design</button></li><li><button data-nav="door:4" aria-current="page">Python Analytics</button></li>
+        <li><button data-nav="about">My story</button></li>
+        <li><button data-nav="contact">Contact</button></li>
+        <li><a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none"><button type="button">Resume ↓</button></a></li>
+      </ul>
+    </nav>
+    <div class="rn__clock" aria-label="Local time"><span>Local time</span>&nbsp;<b data-ftime>—</b>&nbsp;<span class="d">•</span>&nbsp;<span class="d" data-fdate></span></div>
+    <button class="rn__menu" id="rnMenu" aria-expanded="false" aria-controls="rnPanel"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button>
+  </div>
+  <div class="rn__panel" id="rnPanel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="rn__phead">
+      <span class="rn__plbl">Menu</span>
+      <button class="rn__pclose" id="rnClose" aria-label="Close menu"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>
+    <div class="rn__plist">
+      <button data-nav="home">Home</button>
+      <button data-nav="door:0">Web Development</button><button data-nav="door:1">App Development</button><button data-nav="door:2">UI/UX Design</button><button data-nav="door:3">Graphic Design</button><button data-nav="door:4" aria-current="page">Python Analytics</button>
+      <button data-nav="about">My story</button>
+      <button data-nav="contact">Contact</button>
+      <button data-nav="resume">Download CV (PDF)</button>
+    </div>
+    <p class="rn__pfoot">Divyatej Rallapalli — available for new work<br>SRM University–AP · India</p>
   </div>
 </header>
+
+<a href="../#works" class="backd show" data-nav="doors" aria-label="Back to the doors">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+  <span>Back to the doors</span>
+</a>
 
 <main class="shell">
   <section class="lead">
@@ -324,6 +388,89 @@ function updateStack() {
 }
 window.addEventListener('scroll', updateStack, { passive: true });
 updateStack();
+
+// Navigation & Cinematic Door Switching
+(() => {
+  const root = document.documentElement;
+  const EMBED = root.classList.contains('embed') || window.parent !== window;
+  const HOME = '../#works'.replace(/#works$/, '');
+  const SLUGS = ["web-developer", "app-developer", "ui-ux-designer", "graphic-designer", "photographer"];
+
+  const go = to => {
+    if (to === 'top'){ scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    if (to === 'resume'){
+      const a = document.createElement('a');
+      a.href = '../assets/resumedt.pdf';
+      a.download = 'Divyatej_Rallapalli_CV.pdf';
+      a.target = '_blank';
+      a.click();
+      return;
+    }
+    if (EMBED){
+      if (to === 'doors') parent.postMessage({ wall: 'close' }, '*');
+      else parent.postMessage({ wall: 'go', to }, '*');
+      return;
+    }
+    if (to === 'home') location.href = HOME;
+    else if (to === 'about') location.href = HOME + '#about';
+    else if (to === 'contact') location.href = HOME + '#contact';
+    else if (to === 'doors') location.href = HOME + '#works';
+    else if (to.startsWith('door:')) location.href = HOME + '#' + SLUGS[+to.slice(5)];
+  };
+
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-nav]');
+    if (!b) return;
+    if (b.tagName === 'A' && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button)) return;
+    e.preventDefault();
+    const rn = document.getElementById('rn');
+    const menu = document.getElementById('rnMenu');
+    if (rn) rn.classList.remove('open');
+    if (menu) menu.setAttribute('aria-expanded', 'false');
+    const to = b.dataset.nav;
+    if (b.hasAttribute('aria-current')){ scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    go(to);
+  });
+
+  // Mobile drawer menu
+  const rn = document.getElementById('rn'), menu = document.getElementById('rnMenu');
+  const panel = document.getElementById('rnPanel'), pclose = document.getElementById('rnClose');
+  if (menu && rn && panel) {
+    panel.querySelectorAll('.rn__plist button').forEach((b, i) => b.style.setProperty('--i', i));
+    const setMenu = o => {
+      rn.classList.toggle('open', o);
+      menu.setAttribute('aria-expanded', o);
+      root.classList.toggle('rn-lock', o);
+      if (o) setTimeout(() => pclose?.focus(), 60); else menu.focus();
+    };
+    menu.addEventListener('click', () => setMenu(!rn.classList.contains('open')));
+    pclose?.addEventListener('click', () => setMenu(false));
+    panel.addEventListener('click', e => { if (e.target.closest('button[data-nav]')) setMenu(false); });
+  }
+
+  // Clock
+  const updateClock = () => {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase();
+    const dateStr = now.toLocaleDateString([], { day: 'numeric', month: 'long', year: 'numeric' });
+    document.querySelectorAll('[data-ftime]').forEach(el => el.textContent = timeStr);
+    document.querySelectorAll('[data-fdate]').forEach(el => el.textContent = dateStr);
+  };
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Sticky navbar shadow
+  const updStuck = () => { if (rn) rn.classList.toggle('stuck', scrollY > 10); };
+  window.addEventListener('scroll', updStuck, { passive: true });
+  updStuck();
+
+  // Parent postMessage receiver
+  window.addEventListener('message', e => {
+    if (e.data && e.data.wall === 'mode'){
+      root.dataset.mode = e.data.mode;
+    }
+  });
+})();
 </script>
 </body>
 </html>
