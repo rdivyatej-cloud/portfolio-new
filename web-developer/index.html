@@ -14,36 +14,36 @@ body{background:transparent;overflow-x:hidden}
 .glow{position:fixed;top:0;left:50%;width:100vw;max-width:1400px;height:520px;transform:translateX(-50%);background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(var(--fg-rgb),.05),transparent 70%);pointer-events:none;z-index:0}
 .shell{max-width:88rem;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left)) max(20px,env(safe-area-inset-right))}
 
-/* Top Navigation Bar */
+/* Top Navigation Bar with Small & Simple Door Switcher */
 .rn{position:sticky;top:0;z-index:50;background:var(--bg);box-shadow:0 1px 0 rgba(var(--fg-rgb),.1);transition:background .35s ease,box-shadow .35s ease}
-.rn__in{max-width:88rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:0.9rem max(20px,env(safe-area-inset-right)) 0.9rem max(20px,env(safe-area-inset-left))}
-.rn__left{display:flex;align-items:center;gap:1rem}
-.rn__back{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-size:13px;font-weight:600;border:1px solid rgba(var(--fg-rgb),.15);background:rgba(var(--fg-rgb),.04);color:var(--fg);cursor:pointer;text-decoration:none;transition:background .2s,color .2s,transform .2s}
+.rn__in{max-width:88rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.8rem max(20px,env(safe-area-inset-right)) 0.8rem max(20px,env(safe-area-inset-left))}
+.rn__left{display:flex;align-items:center;gap:1.2rem}
+.rn__back{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .95rem;border-radius:999px;font-size:13px;font-weight:600;border:1px solid rgba(var(--fg-rgb),.15);background:rgba(var(--fg-rgb),.04);color:var(--fg);cursor:pointer;text-decoration:none;transition:all .2s ease}
 .rn__back:hover{background:var(--fg);color:var(--bg);transform:translateX(-2px)}
 .rn__back svg{width:14px;height:14px}
-.rn__doors-nav{display:none;align-items:center;gap:0.35rem}
-@media (min-width:1024px){.rn__doors-nav{display:flex}}
-.rn__door-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.4rem 0.8rem;border-radius:999px;font-size:12px;font-weight:500;color:rgba(var(--fg-rgb),0.65);text-decoration:none;transition:all .2s}
-.rn__door-btn:hover{color:var(--fg);background:rgba(var(--fg-rgb),0.05)}
-.rn__door-btn.active{color:var(--fg);background:rgba(var(--fg-rgb),0.09);font-weight:600}
-.rn__right{display:flex;align-items:center;gap:.75rem}
-.chip{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-size:13px;font-weight:500;border:1px solid rgba(var(--fg-rgb),.12);background:rgba(var(--fg-rgb),.03);color:var(--fg);text-decoration:none;transition:background .2s,transform .2s}
+
+/* Compact, Small & Simple Door Switcher Dock */
+.mini-doors-dock{display:inline-flex;align-items:center;gap:5px;padding:3px 5px;border-radius:999px;background:rgba(var(--fg-rgb),0.05);border:1px solid var(--card-line);box-shadow:0 2px 8px rgba(0,0,0,0.03)}
+.mini-door-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:0 8px;height:28px;border-radius:999px;border:1px solid transparent;background:transparent;color:rgba(var(--fg-rgb),0.65);text-decoration:none;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s cubic-bezier(0.16,1,0.3,1)}
+.mini-door-btn svg{width:13px;height:13px;opacity:0.75;transition:transform .2s ease,opacity .2s ease}
+.mini-door-btn:hover{color:var(--fg);background:rgba(var(--fg-rgb),0.08);border-color:rgba(var(--fg-rgb),0.12);transform:translateY(-1px)}
+.mini-door-btn:hover svg{opacity:1;transform:scale(1.08)}
+.mini-door-btn.active{color:var(--bg);background:var(--fg);border-color:var(--fg);box-shadow:0 2px 6px rgba(0,0,0,0.18)}
+.mini-door-btn.active svg{opacity:1}
+
+/* Micro-tooltip */
+.mini-door-btn[data-tip]::after{content:attr(data-tip);position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px);padding:4px 9px;border-radius:6px;background:#141414;color:#f5f3ef;font-family:'Onest',system-ui,sans-serif;font-size:11px;font-weight:500;white-space:nowrap;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .15s ease,transform .15s ease;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1)}
+.mini-door-btn[data-tip]:hover::after{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
+.rn__right{display:flex;align-items:center;gap:.65rem}
+.chip{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem .95rem;border-radius:999px;font-size:13px;font-weight:500;border:1px solid rgba(var(--fg-rgb),.12);background:rgba(var(--fg-rgb),.03);color:var(--fg);text-decoration:none;transition:all .2s}
 .chip:hover{background:rgba(var(--fg-rgb),.08);transform:translateY(-1px)}
 
-/* Door Switcher Pills Bar */
-.door-switcher{margin-top:1.5rem;display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;padding:0.75rem 1rem;border-radius:18px;background:rgba(var(--fg-rgb),0.035);border:1px solid var(--card-line);box-shadow:0 4px 12px rgba(0,0,0,0.02)}
-.dsb-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(var(--fg-rgb),0.5);display:flex;align-items:center;gap:6px;margin-right:0.25rem}
-.dsb-label svg{width:14px;height:14px;color:var(--accent)}
-.dsb-pills{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
-.dsb-pill{display:inline-flex;align-items:center;gap:0.45rem;padding:0.45rem 0.9rem;border-radius:999px;font-size:13px;font-weight:500;color:rgba(var(--fg-rgb),0.7);text-decoration:none;border:1px solid rgba(var(--fg-rgb),0.08);background:var(--card);transition:all .2s cubic-bezier(0.16,1,0.3,1)}
-.dsb-pill:hover{color:var(--fg);border-color:rgba(var(--fg-rgb),0.2);transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,0.05)}
-.dsb-pill.active{color:var(--bg);background:var(--fg);border-color:var(--fg);font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
-.dsb-num{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;opacity:0.65}
-.dsb-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin-left:2px}
-
 /* Lead Section */
-.lead{padding:clamp(40px,7vh,80px) 0 clamp(24px,4vh,48px);position:relative;z-index:1}
-.lead h1{font-size:clamp(36px,5.5vw,76px);font-weight:600;letter-spacing:-.03em;line-height:1.02;margin-bottom:18px}
+.lead{padding:clamp(36px,6vh,72px) 0 clamp(20px,3.5vh,40px);position:relative;z-index:1}
+.lead__top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:14px}
+.lead__door-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent)}
+.lead h1{font-size:clamp(36px,5.5vw,76px);font-weight:600;letter-spacing:-.03em;line-height:1.02;margin-bottom:14px}
 .lead p{font-size:clamp(16px,1.3vw,20px);line-height:1.45;color:rgba(var(--fg-rgb),.7);max-width:52ch}
 
 /* Stacked Project Cards */
@@ -88,7 +88,7 @@ body{background:transparent;overflow-x:hidden}
 /* Bottom Room Transition Navigator */
 .room-nav{position:relative;z-index:2;margin:4rem 0 6rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.5rem;padding:2rem;border-radius:24px;background:var(--card);border:1px solid var(--card-line);box-shadow:0 20px 40px -15px rgba(0,0,0,0.06)}
 @media (max-width:768px){.room-nav{grid-template-columns:1fr;gap:1rem}}
-.rnc{display:flex;flex-direction:column;gap:0.35rem;text-decoration:none;padding:1rem 1.25rem;border-radius:16px;background:rgba(var(--fg-rgb),0.03);border:1px solid transparent;transition:all .2s ease}
+.rnc{display:flex;flex-direction:column;gap:0.35rem;text-decoration:none;padding:1rem 1.25rem;border-radius:16px;background:rgba(var(--fg-rgb),0.03);border:1px solid transparent;cursor:pointer;transition:all .2s ease}
 .rnc:hover{background:rgba(var(--fg-rgb),0.06);border-color:var(--card-line);transform:translateY(-2px)}
 .rnc.next{align-items:flex-end;text-align:right}
 .rnc-dir{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent)}
@@ -96,6 +96,24 @@ body{background:transparent;overflow-x:hidden}
 .rnc-sub{font-size:13px;color:rgba(var(--fg-rgb),0.6)}
 .room-nav-all{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem 1.25rem;border-radius:999px;font-size:13px;font-weight:600;color:var(--fg);background:rgba(var(--fg-rgb),0.06);border:1px solid var(--card-line);text-decoration:none;transition:all .2s}
 .room-nav-all:hover{background:var(--fg);color:var(--bg)}
+
+/* ==========================================================================
+   CINEMATIC 3D DOOR CLOSE & OPEN TRANSITION OVERLAY
+   ========================================================================== */
+.door-transit{position:fixed;inset:0;z-index:99999;background:#080706;display:flex;flex-direction:column;align-items:center;justify-content:center;perspective:1400px;perspective-origin:50% 50%;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .24s ease,visibility .24s ease}
+.door-transit.active{opacity:1;visibility:visible;pointer-events:auto}
+.dt-stage{position:relative;width:min(72vw,300px);aspect-ratio:1 / 1.75;transform-style:preserve-3d;transition:transform .45s cubic-bezier(0.16,1,0.3,1)}
+.dt-frame{position:absolute;inset:0;border-radius:150px 150px 0 0;background:#161514;box-shadow:0 30px 80px rgba(0,0,0,.9),inset 0 0 0 9px #252220,inset 0 0 0 11px rgba(0,0,0,.8);overflow:visible;transform-style:preserve-3d}
+.dt-interior{position:absolute;inset:11px 11px 0 11px;border-radius:139px 139px 0 0;background:radial-gradient(circle at 50% 35%,rgba(255,242,216,1) 0%,rgba(227,83,54,.5) 45%,#080808 100%);overflow:hidden;box-shadow:inset 0 0 35px rgba(0,0,0,.95)}
+.dt-beam{position:absolute;inset:-120px -80px 0 -80px;background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.4) 0%,transparent 70%);opacity:0;transform:translateZ(60px);pointer-events:none;transition:opacity .35s ease}
+.dt-door{position:absolute;inset:11px 11px 0 11px;border-radius:139px 139px 0 0;transform-origin:0% 50%;transform-style:preserve-3d;transform:rotateY(-75deg);background:linear-gradient(135deg,#2e2a28 0%,#1c1a19 60%,#11100f 100%);box-shadow:inset 0 0 0 2px rgba(255,255,255,.08),inset -3px 0 10px rgba(0,0,0,.6),10px 0 35px rgba(0,0,0,.7);transition:transform .4s cubic-bezier(0.2,0.9,0.3,1)}
+.dt-flute{position:absolute;inset:16px 16px 20px 16px;border-radius:123px 123px 5px 5px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0px,rgba(255,255,255,.01) 5px,rgba(0,0,0,.25) 10px);box-shadow:inset 0 0 0 1px rgba(0,0,0,.5),inset 0 2px 6px rgba(0,0,0,.6)}
+.dt-plate{position:absolute;top:32%;left:50%;transform:translate(-50%,-50%);width:72%;padding:8px 10px;border-radius:5px;background:linear-gradient(160deg,#efdfb2 0%,#c9a866 28%,#e3cc92 48%,#a98747 72%,#d2b67a 100%);box-shadow:0 4px 12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.7);text-align:center;font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;font-weight:700;letter-spacing:.12em;color:#2b2112;text-transform:uppercase}
+.dt-handle{position:absolute;right:12px;top:60%;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6dc,#b8934c);box-shadow:0 2px 6px rgba(0,0,0,.6)}
+.dt-lever{position:absolute;right:4px;top:4px;width:28px;height:6px;border-radius:3px;background:linear-gradient(180deg,#fff5d6 0%,#c39d55 50%,#5c4119 100%);transform-origin:24px 50%;box-shadow:0 3px 6px rgba(0,0,0,.4);transition:transform .18s ease}
+.dt-caption{margin-top:28px;text-align:center;transition:opacity .2s ease}
+.dt-status{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:6px}
+.dt-title{font-size:20px;font-weight:600;color:#f3f0ec;letter-spacing:-.02em}
 
 /* Footer */
 .sf{padding:80px 0 40px;background:var(--bg);border-top:1px solid var(--card-line);position:relative;z-index:1}
@@ -119,7 +137,7 @@ body{background:transparent;overflow-x:hidden}
 <body>
 <div class="glow"></div>
 
-<!-- Top Sticky Navbar with Doors Switcher -->
+<!-- Top Sticky Navbar with Small & Simple Door Switcher -->
 <header class="rn">
   <div class="rn__in">
     <div class="rn__left">
@@ -127,9 +145,29 @@ body{background:transparent;overflow-x:hidden}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         <span>Back to doors</span>
       </a>
-      <nav class="rn__doors-nav" aria-label="Quick door switch">
-        <a href="../web-developer/" class="rn__door-btn active" title="Backend &amp; Cloud Systems">01. Backend &amp; Cloud</a><a href="../app-developer/" class="rn__door-btn" title="AI &amp; Generative Engineering">02. AI &amp; Generative</a><a href="../ui-ux-designer/" class="rn__door-btn" title="Full-Stack Web Systems">03. Full-Stack Web</a><a href="../graphic-designer/" class="rn__door-btn" title="Applied Systems Architecture">04. System Architecture</a><a href="../photographer/" class="rn__door-btn" title="Python Core &amp; Analytics">05. Python Analytics</a>
-      </nav>
+      <div class="mini-doors-dock" role="navigation" aria-label="Switch door">
+        
+      <button type="button" class="mini-door-btn active" data-door-slug="web-developer" data-door-idx="0" data-door-name="Backend &amp; Cloud Systems" data-tip="01. Backend &amp; Cloud" aria-current="page">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>01</span>
+      </button>
+      <button type="button" class="mini-door-btn" data-door-slug="app-developer" data-door-idx="1" data-door-name="AI &amp; Generative Engineering" data-tip="02. AI &amp; Generative" >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>02</span>
+      </button>
+      <button type="button" class="mini-door-btn" data-door-slug="ui-ux-designer" data-door-idx="2" data-door-name="Full-Stack Web Systems" data-tip="03. Full-Stack Web" >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>03</span>
+      </button>
+      <button type="button" class="mini-door-btn" data-door-slug="graphic-designer" data-door-idx="3" data-door-name="Applied Systems Architecture" data-tip="04. System Architecture" >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>04</span>
+      </button>
+      <button type="button" class="mini-door-btn" data-door-slug="photographer" data-door-idx="4" data-door-name="Python Core &amp; Analytics" data-tip="05. Python Analytics" >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>05</span>
+      </button>
+      </div>
     </div>
     <div class="rn__right">
       <a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf" target="_blank" rel="noopener noreferrer" class="chip">
@@ -144,45 +182,39 @@ body{background:transparent;overflow-x:hidden}
 </header>
 
 <main class="shell">
-  <!-- Lead Area with Horizontal Door Switcher Bar -->
+  <!-- Lead Section -->
   <section class="lead">
-    <h1>Backend &amp; Cloud Systems</h1>
-    <p>High-throughput distributed systems, idempotent API architectures, token metering pipelines, Stripe webhooks, and containerized microservices.</p>
-
-    <div class="door-switcher" role="navigation" aria-label="Switch between rooms">
-      <div class="dsb-label">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        <span>Switch Door:</span>
-      </div>
-      <div class="dsb-pills">
+    <div class="lead__top">
+      <span class="lead__door-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        Door 01 of 05
+      </span>
+      <div class="mini-doors-dock" style="background:rgba(var(--fg-rgb),0.035)">
         
-      <a href="../web-developer/" class="dsb-pill active" title="Backend &amp; Cloud Systems" aria-current="page">
-        <span class="dsb-num">01</span>
-        <span class="dsb-txt">Backend &amp; Cloud</span>
-        <i class="dsb-dot"></i>
-      </a>
-      <a href="../app-developer/" class="dsb-pill" title="AI &amp; Generative Engineering" >
-        <span class="dsb-num">02</span>
-        <span class="dsb-txt">AI &amp; Generative</span>
-        
-      </a>
-      <a href="../ui-ux-designer/" class="dsb-pill" title="Full-Stack Web Systems" >
-        <span class="dsb-num">03</span>
-        <span class="dsb-txt">Full-Stack Web</span>
-        
-      </a>
-      <a href="../graphic-designer/" class="dsb-pill" title="Applied Systems Architecture" >
-        <span class="dsb-num">04</span>
-        <span class="dsb-txt">System Architecture</span>
-        
-      </a>
-      <a href="../photographer/" class="dsb-pill" title="Python Core &amp; Analytics" >
-        <span class="dsb-num">05</span>
-        <span class="dsb-txt">Python Analytics</span>
-        
-      </a>
+      <button type="button" class="mini-door-btn active" data-door-slug="web-developer" data-door-idx="0" data-door-name="Backend &amp; Cloud Systems" data-tip="01. Backend &amp; Cloud" aria-current="page">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>01</span>
+      </button>
+      <button type="button" class="mini-door-btn" data-door-slug="app-developer" data-door-idx="1" data-door-name="AI &amp; Generative Engineering" data-tip="02. AI &amp; Generative" >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>02</span>
+      </button>
+      <button type="button" class="mini-door-btn" data-door-slug="ui-ux-designer" data-door-idx="2" data-door-name="Full-Stack Web Systems" data-tip="03. Full-Stack Web" >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>03</span>
+      </button>
+      <button type="button" class="mini-door-btn" data-door-slug="graphic-designer" data-door-idx="3" data-door-name="Applied Systems Architecture" data-tip="04. System Architecture" >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>04</span>
+      </button>
+      <button type="button" class="mini-door-btn" data-door-slug="photographer" data-door-idx="4" data-door-name="Python Core &amp; Analytics" data-tip="05. Python Analytics" >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
+        <span>05</span>
+      </button>
       </div>
     </div>
+    <h1>Backend &amp; Cloud Systems</h1>
+    <p>High-throughput distributed systems, idempotent API architectures, token metering pipelines, Stripe webhooks, and containerized microservices.</p>
   </section>
 
   <!-- Project Cards Stack -->
@@ -358,22 +390,41 @@ app.post('/api/tasks', validateSchema(taskSchema), async (req, res) =&gt; {
 
   <!-- Bottom Previous / Next Room Transition Navigator -->
   <nav class="room-nav" aria-label="Adjacent rooms">
-    <a href="../photographer/" class="rnc prev" title="Go to Python Core &amp; Analytics">
+    <div class="rnc prev" data-door-slug="photographer" data-door-idx="4" data-door-name="Python Core &amp; Analytics" title="Go to Python Core &amp; Analytics">
       <span class="rnc-dir">← Previous Door (05)</span>
       <span class="rnc-title">Python Core &amp; Analytics</span>
       <span class="rnc-sub">Algorithms, data structures, and progress engines</span>
-    </a>
+    </div>
     <a href="../#doors" class="room-nav-all" title="View all 5 doors">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
       <span>All 5 Doors</span>
     </a>
-    <a href="../app-developer/" class="rnc next" title="Go to AI &amp; Generative Engineering">
+    <div class="rnc next" data-door-slug="app-developer" data-door-idx="1" data-door-name="AI &amp; Generative Engineering" title="Go to AI &amp; Generative Engineering">
       <span class="rnc-dir">Next Door (02) →</span>
       <span class="rnc-title">AI &amp; Generative Engineering</span>
       <span class="rnc-sub">Production LLMs, prompt pipelines, and Gemini API</span>
-    </a>
+    </div>
   </nav>
 </main>
+
+<!-- 3D Door Closing & Opening Transition Overlay -->
+<div class="door-transit" id="doorTransit" aria-hidden="true">
+  <div class="dt-stage" id="dtStage">
+    <div class="dt-frame">
+      <div class="dt-interior"></div>
+      <div class="dt-beam" id="dtBeam"></div>
+      <div class="dt-door" id="dtDoor">
+        <div class="dt-flute"></div>
+        <div class="dt-plate" id="dtPlate">01 · Backend &amp; Cloud</div>
+        <div class="dt-handle"><div class="dt-lever" id="dtLever"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="dt-caption">
+    <p class="dt-status" id="dtStatus">Closing Door 01...</p>
+    <h3 class="dt-title" id="dtTitle">Backend &amp; Cloud Systems</h3>
+  </div>
+</div>
 
 <footer class="sf">
   <div class="sf__in">
@@ -394,7 +445,7 @@ app.post('/api/tasks', validateSchema(taskSchema), async (req, res) =&gt; {
 </footer>
 
 <script>
-// Keep theme in sync with parent page or localStorage
+// Theme synchronization
 try {
   const m = localStorage.getItem('tej-mode') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   if (m === 'dark') document.documentElement.dataset.mode = 'dark';
@@ -421,18 +472,125 @@ function updateStack() {
 window.addEventListener('scroll', updateStack, { passive: true });
 updateStack();
 
+// ==========================================================================
+// CINEMATIC 3D DOOR CLOSE & OPEN TRANSITION LOGIC
+// ==========================================================================
+const transit = document.getElementById('doorTransit');
+const dtStage = document.getElementById('dtStage');
+const dtDoor = document.getElementById('dtDoor');
+const dtBeam = document.getElementById('dtBeam');
+const dtLever = document.getElementById('dtLever');
+const dtPlate = document.getElementById('dtPlate');
+const dtStatus = document.getElementById('dtStatus');
+const dtTitle = document.getElementById('dtTitle');
+
+let isTransitioning = false;
+
+function switchDoorWithAnimation(targetSlug, targetIndex, targetName) {
+  if (isTransitioning) return;
+  if (targetIndex === 0) return; // already here
+  isTransitioning = true;
+
+  // 1. Activate Overlay
+  transit.classList.add('active');
+  dtStage.style.transform = 'scale(1)';
+  
+  // Start with current door swung open inward
+  dtDoor.style.transition = 'none';
+  dtDoor.style.transform = 'rotateY(-75deg)';
+  dtBeam.style.opacity = '1';
+  dtPlate.textContent = '01 · Backend &amp; Cloud';
+  dtStatus.textContent = 'Closing Door 01...';
+  dtTitle.textContent = 'Backend &amp; Cloud Systems';
+
+  requestAnimationFrame(() => {
+    // Phase 1: Swing CURRENT door SHUT (Close animation)
+    dtDoor.style.transition = 'transform 0.38s cubic-bezier(0.2, 0.9, 0.3, 1)';
+    dtDoor.style.transform = 'rotateY(0deg)';
+    dtBeam.style.opacity = '0';
+
+    // Phase 2: After door closes, switch plate & label to TARGET door
+    setTimeout(() => {
+      dtStatus.textContent = 'Opening Door 0' + (targetIndex + 1) + '...';
+      dtTitle.textContent = targetName;
+      dtPlate.textContent = '0' + (targetIndex + 1) + ' · ' + targetSlug.replace(/-/g, ' ').toUpperCase();
+
+      // Lever press animation
+      dtLever.style.transform = 'rotate(14deg)';
+
+      // Phase 3: Swing TARGET door OPEN and zoom through!
+      setTimeout(() => {
+        dtLever.style.transform = 'rotate(0deg)';
+        dtDoor.style.transition = 'transform 0.42s cubic-bezier(0.16, 1, 0.3, 1)';
+        dtDoor.style.transform = 'rotateY(-78deg)';
+        dtBeam.style.opacity = '1';
+        dtStage.style.transform = 'translateZ(120px) scale(1.15)';
+
+        // Phase 4: Navigate to new room
+        setTimeout(() => {
+          window.location.href = '../' + targetSlug + '/?enter=1';
+        }, 360);
+      }, 140);
+    }, 400);
+  });
+}
+
+// Attach to all door switcher buttons
+document.querySelectorAll('[data-door-slug]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const slug = btn.getAttribute('data-door-slug');
+    const idx = parseInt(btn.getAttribute('data-door-idx'), 10);
+    const name = btn.getAttribute('data-door-name');
+    switchDoorWithAnimation(slug, idx, name);
+  });
+});
+
 // Keyboard shortcuts for door switching (ArrowLeft/Right or numbers 1-5)
 window.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if (e.key === 'ArrowLeft') {
-    location.href = '../photographer/';
+    switchDoorWithAnimation('photographer', 4, 'Python Core &amp; Analytics');
   } else if (e.key === 'ArrowRight') {
-    location.href = '../app-developer/';
+    switchDoorWithAnimation('app-developer', 1, 'AI &amp; Generative Engineering');
   } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
-    const doors = ['web-developer', 'app-developer', 'ui-ux-designer', 'graphic-designer', 'photographer'];
-    location.href = '../' + doors[parseInt(e.key) - 1] + '/';
+    const doors = [
+      { slug: 'web-developer', idx: 0, name: 'Backend & Cloud Systems' },
+      { slug: 'app-developer', idx: 1, name: 'AI & Generative Engineering' },
+      { slug: 'ui-ux-designer', idx: 2, name: 'Full-Stack Web Systems' },
+      { slug: 'graphic-designer', idx: 3, name: 'Applied Systems Architecture' },
+      { slug: 'photographer', idx: 4, name: 'Python Core & Analytics' }
+    ];
+    const target = doors[parseInt(e.key, 10) - 1];
+    if (target) switchDoorWithAnimation(target.slug, target.idx, target.name);
   }
 });
+
+// Arriving entrance animation if navigated with ?enter=1
+if (window.location.search.includes('enter=1')) {
+  transit.classList.add('active');
+  dtDoor.style.transition = 'none';
+  dtDoor.style.transform = 'rotateY(0deg)';
+  dtPlate.textContent = '01 · Backend &amp; Cloud';
+  dtStatus.textContent = 'Entering Door 01...';
+  dtTitle.textContent = 'Backend &amp; Cloud Systems';
+  
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      dtDoor.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+      dtDoor.style.transform = 'rotateY(-78deg)';
+      dtBeam.style.opacity = '1';
+      dtStage.style.transform = 'translateZ(140px) scale(1.2)';
+      setTimeout(() => {
+        transit.style.opacity = '0';
+        setTimeout(() => {
+          transit.classList.remove('active');
+          transit.style.opacity = '';
+        }, 250);
+      }, 350);
+    }, 80);
+  });
+}
 </script>
 </body>
 </html>
