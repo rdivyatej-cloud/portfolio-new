@@ -13,41 +13,10 @@ html[data-mode="dark"]{--bg:#1A1818;--fg:#E8E4E0;--fg-rgb:232,228,224;--card:#23
 body{background:transparent;overflow-x:hidden}
 .glow{position:fixed;top:0;left:50%;width:100vw;max-width:1400px;height:520px;transform:translateX(-50%);background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(var(--fg-rgb),.05),transparent 70%);pointer-events:none;z-index:0}
 .shell{max-width:88rem;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left)) max(20px,env(safe-area-inset-right))}
-
-/* Top Navigation Bar with Small & Simple Door Switcher */
-.rn{position:sticky;top:0;z-index:50;background:var(--bg);box-shadow:0 1px 0 rgba(var(--fg-rgb),.1);transition:background .35s ease,box-shadow .35s ease}
-.rn__in{max-width:88rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.8rem max(20px,env(safe-area-inset-right)) 0.8rem max(20px,env(safe-area-inset-left))}
-.rn__left{display:flex;align-items:center;gap:1.2rem}
-.rn__back{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .95rem;border-radius:999px;font-size:13px;font-weight:600;border:1px solid rgba(var(--fg-rgb),.15);background:rgba(var(--fg-rgb),.04);color:var(--fg);cursor:pointer;text-decoration:none;transition:all .2s ease}
-.rn__back:hover{background:var(--fg);color:var(--bg);transform:translateX(-2px)}
-.rn__back svg{width:14px;height:14px}
-
-/* Compact, Small & Simple Door Switcher Dock */
-.mini-doors-dock{display:inline-flex;align-items:center;gap:5px;padding:3px 5px;border-radius:999px;background:rgba(var(--fg-rgb),0.05);border:1px solid var(--card-line);box-shadow:0 2px 8px rgba(0,0,0,0.03)}
-.mini-door-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:0 8px;height:28px;border-radius:999px;border:1px solid transparent;background:transparent;color:rgba(var(--fg-rgb),0.65);text-decoration:none;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s cubic-bezier(0.16,1,0.3,1)}
-.mini-door-btn svg{width:13px;height:13px;opacity:0.75;transition:transform .2s ease,opacity .2s ease}
-.mini-door-btn:hover{color:var(--fg);background:rgba(var(--fg-rgb),0.08);border-color:rgba(var(--fg-rgb),0.12);transform:translateY(-1px)}
-.mini-door-btn:hover svg{opacity:1;transform:scale(1.08)}
-.mini-door-btn.active{color:var(--bg);background:var(--fg);border-color:var(--fg);box-shadow:0 2px 6px rgba(0,0,0,0.18)}
-.mini-door-btn.active svg{opacity:1}
-
-/* Micro-tooltip */
-.mini-door-btn[data-tip]::after{content:attr(data-tip);position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px);padding:4px 9px;border-radius:6px;background:#141414;color:#f5f3ef;font-family:'Onest',system-ui,sans-serif;font-size:11px;font-weight:500;white-space:nowrap;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .15s ease,transform .15s ease;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1)}
-.mini-door-btn[data-tip]:hover::after{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
-
-.rn__right{display:flex;align-items:center;gap:.65rem}
-.chip{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem .95rem;border-radius:999px;font-size:13px;font-weight:500;border:1px solid rgba(var(--fg-rgb),.12);background:rgba(var(--fg-rgb),.03);color:var(--fg);text-decoration:none;transition:all .2s}
-.chip:hover{background:rgba(var(--fg-rgb),.08);transform:translateY(-1px)}
-
-/* Lead Section */
-.lead{padding:clamp(36px,6vh,72px) 0 clamp(20px,3.5vh,40px);position:relative;z-index:1}
-.lead__top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:14px}
-.lead__door-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent)}
-.lead h1{font-size:clamp(36px,5.5vw,76px);font-weight:600;letter-spacing:-.03em;line-height:1.02;margin-bottom:14px}
-.lead p{font-size:clamp(16px,1.3vw,20px);line-height:1.45;color:rgba(var(--fg-rgb),.7);max-width:52ch}
-
-/* Stacked Project Cards */
-.stack{position:relative;z-index:1;padding-bottom:6vh}
+.lead{padding:clamp(60px,10vh,110px) 0 clamp(36px,5vh,64px);position:relative;z-index:1}
+.lead h1{font-size:clamp(40px,6vw,84px);font-weight:600;letter-spacing:-.03em;line-height:1;margin-bottom:24px}
+.lead p{font-size:clamp(17px,1.4vw,22px);line-height:1.45;color:rgba(var(--fg-rgb),.7);max-width:48ch}
+.stack{position:relative;z-index:1;padding-bottom:12vh}
 .card{position:sticky;top:calc(var(--nav-h,72px) + 16px + var(--i) * 14px);margin-bottom:6vh;border-radius:28px;background:var(--card);
   box-shadow:0 30px 60px -20px rgba(0,0,0,.25),0 0 0 1px var(--card-line);
   border:1px solid var(--card-line);transform-origin:50% 0;will-change:transform;overflow:hidden}
@@ -59,13 +28,15 @@ body{background:transparent;overflow-x:hidden}
 }
 .card__dim{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;border-radius:inherit;transition:opacity .25s ease}
 .card__meta{display:flex;align-items:center;gap:12px;margin-bottom:22px;font-family:ui-monospace,'SF Mono',Consolas,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.card__meta .no{color:rgba(var(--fg-rgb),.4)}
+.card__meta i{width:22px;height:1px;background:currentColor;opacity:.5}
 .card h2{font-size:clamp(28px,3vw,42px);font-weight:600;letter-spacing:-.02em;line-height:1.06;margin-bottom:10px}
 .card .sub{font-size:15px;font-weight:500;color:rgba(var(--fg-rgb),.7);margin-bottom:18px}
 .card .desc{font-size:15px;line-height:1.6;color:rgba(var(--fg-rgb),.75);max-width:44ch;margin-bottom:22px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-bottom:8px}
 .tags li{font-size:12px;font-weight:500;padding:6px 14px;border-radius:999px;background:rgba(var(--fg-rgb),.06);color:rgba(var(--fg-rgb),.85)}
 
-/* 3D Monitor */
+/* 3D Monitor Frame */
 .stage{position:relative;perspective:1900px;perspective-origin:50% 40%;padding:10px 0 28px}
 .mon{position:relative;transform-style:preserve-3d;transform:rotateY(-15deg) rotateX(4deg);transition:transform 1.2s cubic-bezier(.16,1,.3,1);margin-inline:auto;width:100%;max-width:680px}
 .card.flip .mon{transform:rotateY(15deg) rotateX(4deg)}
@@ -85,35 +56,14 @@ body{background:transparent;overflow-x:hidden}
 /* Critical Fix: Ensure card content and stage are ALWAYS visible, never invisible */
 .card .card__info>*, .card .stage{opacity:1 !important; transform:none !important;}
 
-/* Bottom Room Transition Navigator */
-.room-nav{position:relative;z-index:2;margin:4rem 0 6rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.5rem;padding:2rem;border-radius:24px;background:var(--card);border:1px solid var(--card-line);box-shadow:0 20px 40px -15px rgba(0,0,0,0.06)}
-@media (max-width:768px){.room-nav{grid-template-columns:1fr;gap:1rem}}
-.rnc{display:flex;flex-direction:column;gap:0.35rem;text-decoration:none;padding:1rem 1.25rem;border-radius:16px;background:rgba(var(--fg-rgb),0.03);border:1px solid transparent;cursor:pointer;transition:all .2s ease}
-.rnc:hover{background:rgba(var(--fg-rgb),0.06);border-color:var(--card-line);transform:translateY(-2px)}
-.rnc.next{align-items:flex-end;text-align:right}
-.rnc-dir{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent)}
-.rnc-title{font-size:16px;font-weight:600;color:var(--fg)}
-.rnc-sub{font-size:13px;color:rgba(var(--fg-rgb),0.6)}
-.room-nav-all{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem 1.25rem;border-radius:999px;font-size:13px;font-weight:600;color:var(--fg);background:rgba(var(--fg-rgb),0.06);border:1px solid var(--card-line);text-decoration:none;transition:all .2s}
-.room-nav-all:hover{background:var(--fg);color:var(--bg)}
-
-/* ==========================================================================
-   CINEMATIC 3D DOOR CLOSE & OPEN TRANSITION OVERLAY
-   ========================================================================== */
-.door-transit{position:fixed;inset:0;z-index:99999;background:#080706;display:flex;flex-direction:column;align-items:center;justify-content:center;perspective:1400px;perspective-origin:50% 50%;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .24s ease,visibility .24s ease}
-.door-transit.active{opacity:1;visibility:visible;pointer-events:auto}
-.dt-stage{position:relative;width:min(72vw,300px);aspect-ratio:1 / 1.75;transform-style:preserve-3d;transition:transform .45s cubic-bezier(0.16,1,0.3,1)}
-.dt-frame{position:absolute;inset:0;border-radius:150px 150px 0 0;background:#161514;box-shadow:0 30px 80px rgba(0,0,0,.9),inset 0 0 0 9px #252220,inset 0 0 0 11px rgba(0,0,0,.8);overflow:visible;transform-style:preserve-3d}
-.dt-interior{position:absolute;inset:11px 11px 0 11px;border-radius:139px 139px 0 0;background:radial-gradient(circle at 50% 35%,rgba(255,242,216,1) 0%,rgba(227,83,54,.5) 45%,#080808 100%);overflow:hidden;box-shadow:inset 0 0 35px rgba(0,0,0,.95)}
-.dt-beam{position:absolute;inset:-120px -80px 0 -80px;background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.4) 0%,transparent 70%);opacity:0;transform:translateZ(60px);pointer-events:none;transition:opacity .35s ease}
-.dt-door{position:absolute;inset:11px 11px 0 11px;border-radius:139px 139px 0 0;transform-origin:0% 50%;transform-style:preserve-3d;transform:rotateY(-75deg);background:linear-gradient(135deg,#2e2a28 0%,#1c1a19 60%,#11100f 100%);box-shadow:inset 0 0 0 2px rgba(255,255,255,.08),inset -3px 0 10px rgba(0,0,0,.6),10px 0 35px rgba(0,0,0,.7);transition:transform .4s cubic-bezier(0.2,0.9,0.3,1)}
-.dt-flute{position:absolute;inset:16px 16px 20px 16px;border-radius:123px 123px 5px 5px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0px,rgba(255,255,255,.01) 5px,rgba(0,0,0,.25) 10px);box-shadow:inset 0 0 0 1px rgba(0,0,0,.5),inset 0 2px 6px rgba(0,0,0,.6)}
-.dt-plate{position:absolute;top:32%;left:50%;transform:translate(-50%,-50%);width:72%;padding:8px 10px;border-radius:5px;background:linear-gradient(160deg,#efdfb2 0%,#c9a866 28%,#e3cc92 48%,#a98747 72%,#d2b67a 100%);box-shadow:0 4px 12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.7);text-align:center;font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;font-weight:700;letter-spacing:.12em;color:#2b2112;text-transform:uppercase}
-.dt-handle{position:absolute;right:12px;top:60%;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6dc,#b8934c);box-shadow:0 2px 6px rgba(0,0,0,.6)}
-.dt-lever{position:absolute;right:4px;top:4px;width:28px;height:6px;border-radius:3px;background:linear-gradient(180deg,#fff5d6 0%,#c39d55 50%,#5c4119 100%);transform-origin:24px 50%;box-shadow:0 3px 6px rgba(0,0,0,.4);transition:transform .18s ease}
-.dt-caption{margin-top:28px;text-align:center;transition:opacity .2s ease}
-.dt-status{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:6px}
-.dt-title{font-size:20px;font-weight:600;color:#f3f0ec;letter-spacing:-.02em}
+/* Navigation Bar */
+.rn{position:sticky;top:0;z-index:40;background:var(--bg);box-shadow:0 1px 0 rgba(var(--fg-rgb),.1)}
+.rn__in{max-width:88rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.1rem max(16px,env(safe-area-inset-right)) 1.1rem max(16px,env(safe-area-inset-left))}
+.rn__back{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-size:13px;font-weight:500;border:1px solid rgba(var(--fg-rgb),.15);background:rgba(var(--fg-rgb),.04);color:var(--fg);cursor:pointer;text-decoration:none;transition:background .2s,color .2s}
+.rn__back:hover{background:var(--fg);color:var(--bg)}
+.rn__back svg{width:14px;height:14px}
+.rn__right{display:flex;align-items:center;gap:.75rem}
+.chip{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-size:13px;font-weight:500;border:1px solid rgba(var(--fg-rgb),.12);background:rgba(var(--fg-rgb),.03);color:var(--fg);text-decoration:none}
 
 /* Footer */
 .sf{padding:80px 0 40px;background:var(--bg);border-top:1px solid var(--card-line);position:relative;z-index:1}
@@ -136,88 +86,30 @@ body{background:transparent;overflow-x:hidden}
 </head>
 <body>
 <div class="glow"></div>
-
-<!-- Top Sticky Navbar with Small & Simple Door Switcher -->
 <header class="rn">
   <div class="rn__in">
-    <div class="rn__left">
-      <a href="../#doors" class="rn__back" title="Back to doors">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        <span>Back to doors</span>
-      </a>
-      <div class="mini-doors-dock" role="navigation" aria-label="Switch door">
-        
-      <button type="button" class="mini-door-btn" data-door-slug="web-developer" data-door-idx="0" data-door-name="Backend &amp; Cloud Systems" data-tip="01. Backend &amp; Cloud" >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>01</span>
-      </button>
-      <button type="button" class="mini-door-btn" data-door-slug="app-developer" data-door-idx="1" data-door-name="AI &amp; Generative Engineering" data-tip="02. AI &amp; Generative" >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>02</span>
-      </button>
-      <button type="button" class="mini-door-btn active" data-door-slug="ui-ux-designer" data-door-idx="2" data-door-name="Full-Stack Web Systems" data-tip="03. Full-Stack Web" aria-current="page">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>03</span>
-      </button>
-      <button type="button" class="mini-door-btn" data-door-slug="graphic-designer" data-door-idx="3" data-door-name="Applied Systems Architecture" data-tip="04. System Architecture" >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>04</span>
-      </button>
-      <button type="button" class="mini-door-btn" data-door-slug="photographer" data-door-idx="4" data-door-name="Python Core &amp; Analytics" data-tip="05. Python Analytics" >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>05</span>
-      </button>
-      </div>
-    </div>
+    <a href="../#doors" class="rn__back" title="Back to doors">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>Back to doors</span>
+    </a>
     <div class="rn__right">
       <a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf" target="_blank" rel="noopener noreferrer" class="chip">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         <span>Download CV</span>
       </a>
       <a href="../#contact" class="chip">
-        <span>Contact</span>
+        <span>Get in touch</span>
       </a>
     </div>
   </div>
 </header>
 
 <main class="shell">
-  <!-- Lead Section -->
   <section class="lead">
-    <div class="lead__top">
-      <span class="lead__door-tag">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        Door 03 of 05
-      </span>
-      <div class="mini-doors-dock" style="background:rgba(var(--fg-rgb),0.035)">
-        
-      <button type="button" class="mini-door-btn" data-door-slug="web-developer" data-door-idx="0" data-door-name="Backend &amp; Cloud Systems" data-tip="01. Backend &amp; Cloud" >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>01</span>
-      </button>
-      <button type="button" class="mini-door-btn" data-door-slug="app-developer" data-door-idx="1" data-door-name="AI &amp; Generative Engineering" data-tip="02. AI &amp; Generative" >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>02</span>
-      </button>
-      <button type="button" class="mini-door-btn active" data-door-slug="ui-ux-designer" data-door-idx="2" data-door-name="Full-Stack Web Systems" data-tip="03. Full-Stack Web" aria-current="page">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>03</span>
-      </button>
-      <button type="button" class="mini-door-btn" data-door-slug="graphic-designer" data-door-idx="3" data-door-name="Applied Systems Architecture" data-tip="04. System Architecture" >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>04</span>
-      </button>
-      <button type="button" class="mini-door-btn" data-door-slug="photographer" data-door-idx="4" data-door-name="Python Core &amp; Analytics" data-tip="05. Python Analytics" >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><circle cx="14" cy="12" r="1" fill="currentColor"/></svg>
-        <span>05</span>
-      </button>
-      </div>
-    </div>
     <h1>Full-Stack Web Systems</h1>
     <p>Reactive interfaces, modern frontend architectures, interactive data visualizations, and high-conversion UX.</p>
   </section>
 
-  <!-- Project Cards Stack -->
   <section class="stack" id="stack" aria-label="Projects">
     
     <article class="card seen on" style="--i:0" aria-labelledby="p0">
@@ -387,44 +279,7 @@ export function QuotaGauge({ currentUsage, maxQuota }) {
       <div class="card__dim"></div>
     </article>
   </section>
-
-  <!-- Bottom Previous / Next Room Transition Navigator -->
-  <nav class="room-nav" aria-label="Adjacent rooms">
-    <div class="rnc prev" data-door-slug="app-developer" data-door-idx="1" data-door-name="AI &amp; Generative Engineering" title="Go to AI &amp; Generative Engineering">
-      <span class="rnc-dir">← Previous Door (02)</span>
-      <span class="rnc-title">AI &amp; Generative Engineering</span>
-      <span class="rnc-sub">Production LLMs, prompt pipelines, and Gemini API</span>
-    </div>
-    <a href="../#doors" class="room-nav-all" title="View all 5 doors">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
-      <span>All 5 Doors</span>
-    </a>
-    <div class="rnc next" data-door-slug="graphic-designer" data-door-idx="3" data-door-name="Applied Systems Architecture" title="Go to Applied Systems Architecture">
-      <span class="rnc-dir">Next Door (04) →</span>
-      <span class="rnc-title">Applied Systems Architecture</span>
-      <span class="rnc-sub">Idempotency state machines, security, and schemas</span>
-    </div>
-  </nav>
 </main>
-
-<!-- 3D Door Closing & Opening Transition Overlay -->
-<div class="door-transit" id="doorTransit" aria-hidden="true">
-  <div class="dt-stage" id="dtStage">
-    <div class="dt-frame">
-      <div class="dt-interior"></div>
-      <div class="dt-beam" id="dtBeam"></div>
-      <div class="dt-door" id="dtDoor">
-        <div class="dt-flute"></div>
-        <div class="dt-plate" id="dtPlate">03 · Full-Stack Web</div>
-        <div class="dt-handle"><div class="dt-lever" id="dtLever"></div></div>
-      </div>
-    </div>
-  </div>
-  <div class="dt-caption">
-    <p class="dt-status" id="dtStatus">Closing Door 03...</p>
-    <h3 class="dt-title" id="dtTitle">Full-Stack Web Systems</h3>
-  </div>
-</div>
 
 <footer class="sf">
   <div class="sf__in">
@@ -436,7 +291,7 @@ export function QuotaGauge({ currentUsage, maxQuota }) {
       <a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf" class="chip" style="font-size: 14px; padding: 12px 24px;">Download CV (PDF)</a>
     </div>
     <div class="sf__cols">
-      <div><h3>All Doors</h3><ul><li><a href="../web-developer/">01. Backend & Cloud</a></li><li><a href="../app-developer/">02. AI & Generative</a></li><li><a href="../ui-ux-designer/">03. Full-Stack Web</a></li><li><a href="../graphic-designer/">04. System Architecture</a></li><li><a href="../photographer/">05. Python Analytics</a></li></ul></div>
+      <div><h3>Work Rooms</h3><ul><li><a href="../web-developer/">Web Development</a></li><li><a href="../app-developer/">App Development</a></li><li><a href="../ui-ux-designer/">UI/UX Design</a></li><li><a href="../graphic-designer/">Graphic Design</a></li><li><a href="../photographer/">Python Analytics</a></li></ul></div>
       <div><h3>Navigate</h3><ul><li><a href="../">Home</a></li><li><a href="../#about">My story</a></li><li><a href="../#contact">Contact</a></li><li><a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf">Download CV (PDF)</a></li></ul></div>
       <div><h3>Status</h3><ul><li>Available for work</li><li>SRM University–AP, India</li><li>CGPA: 7.5 · CSE (Cybersecurity)</li></ul></div>
     </div>
@@ -445,7 +300,7 @@ export function QuotaGauge({ currentUsage, maxQuota }) {
 </footer>
 
 <script>
-// Theme synchronization
+// Keep theme in sync with parent page or localStorage
 try {
   const m = localStorage.getItem('tej-mode') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   if (m === 'dark') document.documentElement.dataset.mode = 'dark';
@@ -471,126 +326,6 @@ function updateStack() {
 }
 window.addEventListener('scroll', updateStack, { passive: true });
 updateStack();
-
-// ==========================================================================
-// CINEMATIC 3D DOOR CLOSE & OPEN TRANSITION LOGIC
-// ==========================================================================
-const transit = document.getElementById('doorTransit');
-const dtStage = document.getElementById('dtStage');
-const dtDoor = document.getElementById('dtDoor');
-const dtBeam = document.getElementById('dtBeam');
-const dtLever = document.getElementById('dtLever');
-const dtPlate = document.getElementById('dtPlate');
-const dtStatus = document.getElementById('dtStatus');
-const dtTitle = document.getElementById('dtTitle');
-
-let isTransitioning = false;
-
-function switchDoorWithAnimation(targetSlug, targetIndex, targetName) {
-  if (isTransitioning) return;
-  if (targetIndex === 2) return; // already here
-  isTransitioning = true;
-
-  // 1. Activate Overlay
-  transit.classList.add('active');
-  dtStage.style.transform = 'scale(1)';
-  
-  // Start with current door swung open inward
-  dtDoor.style.transition = 'none';
-  dtDoor.style.transform = 'rotateY(-75deg)';
-  dtBeam.style.opacity = '1';
-  dtPlate.textContent = '03 · Full-Stack Web';
-  dtStatus.textContent = 'Closing Door 03...';
-  dtTitle.textContent = 'Full-Stack Web Systems';
-
-  requestAnimationFrame(() => {
-    // Phase 1: Swing CURRENT door SHUT (Close animation)
-    dtDoor.style.transition = 'transform 0.38s cubic-bezier(0.2, 0.9, 0.3, 1)';
-    dtDoor.style.transform = 'rotateY(0deg)';
-    dtBeam.style.opacity = '0';
-
-    // Phase 2: After door closes, switch plate & label to TARGET door
-    setTimeout(() => {
-      dtStatus.textContent = 'Opening Door 0' + (targetIndex + 1) + '...';
-      dtTitle.textContent = targetName;
-      dtPlate.textContent = '0' + (targetIndex + 1) + ' · ' + targetSlug.replace(/-/g, ' ').toUpperCase();
-
-      // Lever press animation
-      dtLever.style.transform = 'rotate(14deg)';
-
-      // Phase 3: Swing TARGET door OPEN and zoom through!
-      setTimeout(() => {
-        dtLever.style.transform = 'rotate(0deg)';
-        dtDoor.style.transition = 'transform 0.42s cubic-bezier(0.16, 1, 0.3, 1)';
-        dtDoor.style.transform = 'rotateY(-78deg)';
-        dtBeam.style.opacity = '1';
-        dtStage.style.transform = 'translateZ(120px) scale(1.15)';
-
-        // Phase 4: Navigate to new room
-        setTimeout(() => {
-          window.location.href = '../' + targetSlug + '/?enter=1';
-        }, 360);
-      }, 140);
-    }, 400);
-  });
-}
-
-// Attach to all door switcher buttons
-document.querySelectorAll('[data-door-slug]').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const slug = btn.getAttribute('data-door-slug');
-    const idx = parseInt(btn.getAttribute('data-door-idx'), 10);
-    const name = btn.getAttribute('data-door-name');
-    switchDoorWithAnimation(slug, idx, name);
-  });
-});
-
-// Keyboard shortcuts for door switching (ArrowLeft/Right or numbers 1-5)
-window.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  if (e.key === 'ArrowLeft') {
-    switchDoorWithAnimation('app-developer', 1, 'AI &amp; Generative Engineering');
-  } else if (e.key === 'ArrowRight') {
-    switchDoorWithAnimation('graphic-designer', 3, 'Applied Systems Architecture');
-  } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
-    const doors = [
-      { slug: 'web-developer', idx: 0, name: 'Backend & Cloud Systems' },
-      { slug: 'app-developer', idx: 1, name: 'AI & Generative Engineering' },
-      { slug: 'ui-ux-designer', idx: 2, name: 'Full-Stack Web Systems' },
-      { slug: 'graphic-designer', idx: 3, name: 'Applied Systems Architecture' },
-      { slug: 'photographer', idx: 4, name: 'Python Core & Analytics' }
-    ];
-    const target = doors[parseInt(e.key, 10) - 1];
-    if (target) switchDoorWithAnimation(target.slug, target.idx, target.name);
-  }
-});
-
-// Arriving entrance animation if navigated with ?enter=1
-if (window.location.search.includes('enter=1')) {
-  transit.classList.add('active');
-  dtDoor.style.transition = 'none';
-  dtDoor.style.transform = 'rotateY(0deg)';
-  dtPlate.textContent = '03 · Full-Stack Web';
-  dtStatus.textContent = 'Entering Door 03...';
-  dtTitle.textContent = 'Full-Stack Web Systems';
-  
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      dtDoor.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-      dtDoor.style.transform = 'rotateY(-78deg)';
-      dtBeam.style.opacity = '1';
-      dtStage.style.transform = 'translateZ(140px) scale(1.2)';
-      setTimeout(() => {
-        transit.style.opacity = '0';
-        setTimeout(() => {
-          transit.classList.remove('active');
-          transit.style.opacity = '';
-        }, 250);
-      }, 350);
-    }, 80);
-  });
-}
 </script>
 </body>
 </html>
