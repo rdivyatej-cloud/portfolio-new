@@ -59,12 +59,12 @@ body{background:transparent;overflow-x:hidden}
 /* Navigation Bar */
 .rn{position:sticky;top:0;z-index:40;background:var(--bg);box-shadow:0 1px 0 rgba(var(--fg-rgb),.08);transition:background .35s ease,box-shadow .35s ease}
 .rn.stuck{box-shadow:0 1px 0 rgba(var(--fg-rgb),.15)}
-.rn__in{max-width:88rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.1rem max(16px,env(safe-area-inset-right)) 1.1rem max(16px,env(safe-area-inset-left));transition:padding .35s ease}
-.rn nav ul{display:none;list-style:none;margin:0;padding:0;gap:1.4rem;align-items:center;white-space:nowrap}
-.rn nav button{padding:0;border:0;background:none;color:var(--fg);font:inherit;font-size:1rem;font-weight:500;opacity:.8;cursor:pointer;transition:opacity .2s}
+.rn__in{max-width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:clamp(1rem,1.8vw,2.5rem);padding:1.1rem clamp(1.25rem,3.5vw,4.5rem);transition:padding .35s ease}
+.rn nav ul{display:none;list-style:none;margin:0;padding:0;gap:clamp(0.65rem,1vw,1.25rem);align-items:center;white-space:nowrap}
+.rn nav button{padding:0;border:0;background:none;color:var(--fg);font:inherit;font-size:clamp(0.84rem,0.9vw,0.95rem);font-weight:500;opacity:.8;cursor:pointer;transition:opacity .2s}
 .rn nav button:hover,.rn nav button[aria-current]{opacity:1}
 .rn nav button[aria-current]{text-decoration:underline;text-underline-offset:.35em;text-decoration-thickness:1px}
-.rn__clock{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;border-radius:999px;border:1px solid rgba(var(--fg-rgb),.12);font-size:.875rem;font-weight:500;white-space:nowrap}
+.rn__clock{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;border-radius:999px;border:1px solid rgba(var(--fg-rgb),.12);font-size:.875rem;font-weight:500;white-space:nowrap;flex:0 0 auto}
 .rn__clock span{color:rgba(var(--fg-rgb),.68)}
 .rn__menu{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:2.75rem;padding:0 1.05rem 0 .95rem;font:500 .9375rem/1 'Onest',ui-sans-serif,system-ui,sans-serif;border-radius:999px;border:1px solid rgba(var(--fg-rgb),.12);background:none;color:var(--fg);cursor:pointer}
 .rn__menu svg{width:1.1rem;height:1.1rem}
@@ -88,14 +88,17 @@ body{background:transparent;overflow-x:hidden}
   font:500 .8125rem/1.4 'Onest',ui-sans-serif,system-ui,sans-serif;color:rgba(var(--fg-rgb),.55)}
 html.rn-lock{overflow:hidden}
 
-@media (min-width:1100px){
+@media (min-width:1200px){
   .rn nav ul{display:flex}
   .rn__menu,.rn__panel{display:none!important}
 }
-@media (max-width:1099.98px){
+@media (max-width:1199.98px){
   .rn nav{display:none}
   .rn__clock{display:none}
   .rn__menu{order:99;margin-left:auto}
+}
+@media (min-width:1200px) and (max-width:1380px){
+  .rn__clock .d{display:none}
 }
 
 /* Floating "Back to the doors" pill on bottom left */
