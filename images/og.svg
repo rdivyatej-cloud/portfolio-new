@@ -1,0 +1,35 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#14110f"/>
+  
+  <!-- Subtle Gradients & Grid -->
+  <circle cx="950" cy="180" r="300" fill="#ccff00" fill-opacity="0.06" filter="blur(80px)"/>
+  <circle cx="200" cy="500" r="250" fill="#38bdf8" fill-opacity="0.04" filter="blur(80px)"/>
+  
+  <!-- Outer border -->
+  <rect x="24" y="24" width="1152" height="582" rx="20" stroke="#f4f0eb" stroke-opacity="0.08" stroke-width="2"/>
+  
+  <!-- Monogram Pill -->
+  <rect x="80" y="80" width="48" height="48" rx="12" fill="#1c1815" stroke="#ccff00" stroke-width="2"/>
+  <text x="104" y="112" fill="#ccff00" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="20" text-anchor="middle">DR</text>
+  
+  <text x="144" y="110" fill="#ccff00" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="2">PORTFOLIO // 2026</text>
+  
+  <!-- Headline -->
+  <text x="80" y="250" fill="#f4f0eb" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="64" letter-spacing="-1">Divyatej Rallapalli</text>
+  
+  <!-- Role Title -->
+  <text x="80" y="320" fill="#ccff00" font-family="'JetBrains Mono', monospace" font-weight="bold" font-size="30">&gt; Backend &amp; AI Engineer</text>
+  
+  <text x="80" y="380" fill="#9e9891" font-family="'Space Grotesk', sans-serif" font-size="24">Computer Science (Cybersecurity) Undergraduate @ SRM University-AP</text>
+  
+  <text x="80" y="420" fill="#6e6761" font-family="'JetBrains Mono', monospace" font-size="20">Node.js • Python • PostgreSQL • Docker • REST APIs • Stripe • Gemini AI</text>
+  
+  <!-- Bottom Meta -->
+  <rect x="80" y="490" width="380" height="46" rx="23" fill="#1c1815" stroke="#f4f0eb" stroke-opacity="0.1"/>
+  <circle cx="106" cy="513" r="5" fill="#ccff00"/>
+  <text x="124" y="520" fill="#f4f0eb" font-family="'JetBrains Mono', monospace" font-size="14">Available for internships &amp; entry roles</text>
+  
+  <text x="1120" y="520" fill="#6e6761" font-family="'JetBrains Mono', monospace" font-size="16" text-anchor="end">github.com/rdivyatej-cloud</text>
+</svg>
+

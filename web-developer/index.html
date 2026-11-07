@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Backend &amp; Cloud Systems — Divyatej Rallapalli</title>
+<link rel="preload" href="../fonts/onest-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'Onest';font-style:normal;font-display:swap;font-weight:100 900;src:url(../fonts/onest-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152}
+*,::before,::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#E8E4E0;--fg:#1A1818;--fg-rgb:26,24,24;--card:#F3F0EC;--card-line:rgba(26,24,24,.08);--accent:#E35336;--nav-h:72px}
+html{background-color:var(--bg);color:var(--fg);font-family:'Onest',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html[data-mode="dark"]{--bg:#1A1818;--fg:#E8E4E0;--fg-rgb:232,228,224;--card:#232020;--card-line:rgba(232,228,224,.1);--accent:#FF6B4A}
+body{background:transparent;overflow-x:hidden}
+.glow{position:fixed;top:0;left:50%;width:100vw;max-width:1400px;height:520px;transform:translateX(-50%);background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(var(--fg-rgb),.05),transparent 70%);pointer-events:none;z-index:0}
+.shell{max-width:88rem;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left)) max(20px,env(safe-area-inset-right))}
+
+/* Top Navigation Bar */
+.rn{position:sticky;top:0;z-index:50;background:var(--bg);box-shadow:0 1px 0 rgba(var(--fg-rgb),.1);transition:background .35s ease,box-shadow .35s ease}
+.rn__in{max-width:88rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:0.9rem max(20px,env(safe-area-inset-right)) 0.9rem max(20px,env(safe-area-inset-left))}
+.rn__left{display:flex;align-items:center;gap:1rem}
+.rn__back{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-size:13px;font-weight:600;border:1px solid rgba(var(--fg-rgb),.15);background:rgba(var(--fg-rgb),.04);color:var(--fg);cursor:pointer;text-decoration:none;transition:background .2s,color .2s,transform .2s}
+.rn__back:hover{background:var(--fg);color:var(--bg);transform:translateX(-2px)}
+.rn__back svg{width:14px;height:14px}
+.rn__doors-nav{display:none;align-items:center;gap:0.35rem}
+@media (min-width:1024px){.rn__doors-nav{display:flex}}
+.rn__door-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.4rem 0.8rem;border-radius:999px;font-size:12px;font-weight:500;color:rgba(var(--fg-rgb),0.65);text-decoration:none;transition:all .2s}
+.rn__door-btn:hover{color:var(--fg);background:rgba(var(--fg-rgb),0.05)}
+.rn__door-btn.active{color:var(--fg);background:rgba(var(--fg-rgb),0.09);font-weight:600}
+.rn__right{display:flex;align-items:center;gap:.75rem}
+.chip{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-size:13px;font-weight:500;border:1px solid rgba(var(--fg-rgb),.12);background:rgba(var(--fg-rgb),.03);color:var(--fg);text-decoration:none;transition:background .2s,transform .2s}
+.chip:hover{background:rgba(var(--fg-rgb),.08);transform:translateY(-1px)}
+
+/* Door Switcher Pills Bar */
+.door-switcher{margin-top:1.5rem;display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;padding:0.75rem 1rem;border-radius:18px;background:rgba(var(--fg-rgb),0.035);border:1px solid var(--card-line);box-shadow:0 4px 12px rgba(0,0,0,0.02)}
+.dsb-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(var(--fg-rgb),0.5);display:flex;align-items:center;gap:6px;margin-right:0.25rem}
+.dsb-label svg{width:14px;height:14px;color:var(--accent)}
+.dsb-pills{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
+.dsb-pill{display:inline-flex;align-items:center;gap:0.45rem;padding:0.45rem 0.9rem;border-radius:999px;font-size:13px;font-weight:500;color:rgba(var(--fg-rgb),0.7);text-decoration:none;border:1px solid rgba(var(--fg-rgb),0.08);background:var(--card);transition:all .2s cubic-bezier(0.16,1,0.3,1)}
+.dsb-pill:hover{color:var(--fg);border-color:rgba(var(--fg-rgb),0.2);transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,0.05)}
+.dsb-pill.active{color:var(--bg);background:var(--fg);border-color:var(--fg);font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.dsb-num{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;opacity:0.65}
+.dsb-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin-left:2px}
+
+/* Lead Section */
+.lead{padding:clamp(40px,7vh,80px) 0 clamp(24px,4vh,48px);position:relative;z-index:1}
+.lead h1{font-size:clamp(36px,5.5vw,76px);font-weight:600;letter-spacing:-.03em;line-height:1.02;margin-bottom:18px}
+.lead p{font-size:clamp(16px,1.3vw,20px);line-height:1.45;color:rgba(var(--fg-rgb),.7);max-width:52ch}
+
+/* Stacked Project Cards */
+.stack{position:relative;z-index:1;padding-bottom:6vh}
+.card{position:sticky;top:calc(var(--nav-h,72px) + 16px + var(--i) * 14px);margin-bottom:6vh;border-radius:28px;background:var(--card);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.25),0 0 0 1px var(--card-line);
+  border:1px solid var(--card-line);transform-origin:50% 0;will-change:transform;overflow:hidden}
+.card__in{display:grid;gap:28px;padding:28px;min-height:min(calc(100vh - var(--nav-h,72px) - 120px),680px)}
+@media (min-width:900px){
+  .card__in{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center;gap:40px;padding:48px 56px}
+  .card.flip .card__in{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  .card.flip .card__info{order:2}
+}
+.card__dim{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;border-radius:inherit;transition:opacity .25s ease}
+.card__meta{display:flex;align-items:center;gap:12px;margin-bottom:22px;font-family:ui-monospace,'SF Mono',Consolas,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.card h2{font-size:clamp(28px,3vw,42px);font-weight:600;letter-spacing:-.02em;line-height:1.06;margin-bottom:10px}
+.card .sub{font-size:15px;font-weight:500;color:rgba(var(--fg-rgb),.7);margin-bottom:18px}
+.card .desc{font-size:15px;line-height:1.6;color:rgba(var(--fg-rgb),.75);max-width:44ch;margin-bottom:22px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-bottom:8px}
+.tags li{font-size:12px;font-weight:500;padding:6px 14px;border-radius:999px;background:rgba(var(--fg-rgb),.06);color:rgba(var(--fg-rgb),.85)}
+
+/* 3D Monitor */
+.stage{position:relative;perspective:1900px;perspective-origin:50% 40%;padding:10px 0 28px}
+.mon{position:relative;transform-style:preserve-3d;transform:rotateY(-15deg) rotateX(4deg);transition:transform 1.2s cubic-bezier(.16,1,.3,1);margin-inline:auto;width:100%;max-width:680px}
+.card.flip .mon{transform:rotateY(15deg) rotateX(4deg)}
+.card:hover .mon{transform:rotateY(-8deg) rotateX(2deg)}
+.card.flip:hover .mon{transform:rotateY(8deg) rotateX(2deg)}
+.mon__body{position:relative;transform-style:preserve-3d;--mp:clamp(6px,1.2vw,12px);padding:var(--mp);border-radius:calc(var(--mp) + 8px);background:linear-gradient(160deg,#2a2828,#0d0c0c 60%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.12)}
+.mon__body::before{content:"";position:absolute;top:10px;bottom:10px;right:0;width:22px;transform-origin:100% 50%;transform:rotateY(-90deg);
+  background:linear-gradient(180deg,#bdb9b5,#8d8985 50%,#6f6b68);border-radius:0 6px 6px 0}
+.card.flip .mon__body::before{right:auto;left:0;transform-origin:0 50%;transform:rotateY(90deg)}
+.mon__screen{position:relative;aspect-ratio:16/10;border-radius:8px;overflow:hidden;background:#0d0c0c;transform:translateZ(.5px)}
+.mon__neck{position:relative;width:15%;height:clamp(36px,6vw,68px);margin:-2px auto 0;transform:translateZ(-30px);
+  background:linear-gradient(90deg,#8e8a86,#d9d5d0 45%,#b7b2ad 60%,#7e7a76);clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)}
+.mon__foot{width:36%;height:12px;margin:0 auto;border-radius:3px 3px 8px 8px;transform:translateZ(-30px);
+  background:linear-gradient(180deg,#e5e1dc,#a9a49f);box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
+
+/* Critical Fix: Ensure card content and stage are ALWAYS visible, never invisible */
+.card .card__info>*, .card .stage{opacity:1 !important; transform:none !important;}
+
+/* Bottom Room Transition Navigator */
+.room-nav{position:relative;z-index:2;margin:4rem 0 6rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.5rem;padding:2rem;border-radius:24px;background:var(--card);border:1px solid var(--card-line);box-shadow:0 20px 40px -15px rgba(0,0,0,0.06)}
+@media (max-width:768px){.room-nav{grid-template-columns:1fr;gap:1rem}}
+.rnc{display:flex;flex-direction:column;gap:0.35rem;text-decoration:none;padding:1rem 1.25rem;border-radius:16px;background:rgba(var(--fg-rgb),0.03);border:1px solid transparent;transition:all .2s ease}
+.rnc:hover{background:rgba(var(--fg-rgb),0.06);border-color:var(--card-line);transform:translateY(-2px)}
+.rnc.next{align-items:flex-end;text-align:right}
+.rnc-dir{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent)}
+.rnc-title{font-size:16px;font-weight:600;color:var(--fg)}
+.rnc-sub{font-size:13px;color:rgba(var(--fg-rgb),0.6)}
+.room-nav-all{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem 1.25rem;border-radius:999px;font-size:13px;font-weight:600;color:var(--fg);background:rgba(var(--fg-rgb),0.06);border:1px solid var(--card-line);text-decoration:none;transition:all .2s}
+.room-nav-all:hover{background:var(--fg);color:var(--bg)}
+
+/* Footer */
+.sf{padding:80px 0 40px;background:var(--bg);border-top:1px solid var(--card-line);position:relative;z-index:1}
+.sf__in{max-width:88rem;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left)) max(20px,env(safe-area-inset-right))}
+.sf__eye{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px}
+.sf__eye i{display:inline-block;width:8px;height:8px;border-radius:50%;background:currentColor;animation:pDot 2s ease-in-out infinite}
+@keyframes pDot{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.sf__h{font-size:clamp(32px,4vw,56px);font-weight:600;letter-spacing:-.03em;line-height:1.1;margin-bottom:16px}
+.sf__h span{display:block;color:rgba(var(--fg-rgb),.4)}
+.sf__p{font-size:16px;line-height:1.6;color:rgba(var(--fg-rgb),.7);max-width:52ch;margin-bottom:28px}
+.sf__cta{display:flex;gap:12px;margin-bottom:60px;flex-wrap:wrap}
+.sf__btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;font-size:14px;font-weight:600;background:var(--fg);color:var(--bg);border:none;cursor:pointer;text-decoration:none}
+.sf__cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;padding:40px 0;border-top:1px solid var(--card-line);border-bottom:1px solid var(--card-line)}
+.sf__cols h3{font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(var(--fg-rgb),.4);margin-bottom:14px}
+.sf__cols ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.sf__cols a, .sf__cols button{color:rgba(var(--fg-rgb),.75);text-decoration:none;font-size:14px;background:none;border:none;cursor:pointer;padding:0;text-align:left;font-family:inherit}
+.sf__cols a:hover, .sf__cols button:hover{color:var(--fg)}
+.sf__bot{display:flex;justify-content:space-between;align-items:center;padding-top:28px;font-size:13px;color:rgba(var(--fg-rgb),.4);flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<!-- Top Sticky Navbar with Doors Switcher -->
+<header class="rn">
+  <div class="rn__in">
+    <div class="rn__left">
+      <a href="../#doors" class="rn__back" title="Back to doors">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back to doors</span>
+      </a>
+      <nav class="rn__doors-nav" aria-label="Quick door switch">
+        <a href="../web-developer/" class="rn__door-btn active" title="Backend &amp; Cloud Systems">01. Backend &amp; Cloud</a><a href="../app-developer/" class="rn__door-btn" title="AI &amp; Generative Engineering">02. AI &amp; Generative</a><a href="../ui-ux-designer/" class="rn__door-btn" title="Full-Stack Web Systems">03. Full-Stack Web</a><a href="../graphic-designer/" class="rn__door-btn" title="Applied Systems Architecture">04. System Architecture</a><a href="../photographer/" class="rn__door-btn" title="Python Core &amp; Analytics">05. Python Analytics</a>
+      </nav>
+    </div>
+    <div class="rn__right">
+      <a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf" target="_blank" rel="noopener noreferrer" class="chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        <span>Download CV</span>
+      </a>
+      <a href="../#contact" class="chip">
+        <span>Contact</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+  <!-- Lead Area with Horizontal Door Switcher Bar -->
+  <section class="lead">
+    <h1>Backend &amp; Cloud Systems</h1>
+    <p>High-throughput distributed systems, idempotent API architectures, token metering pipelines, Stripe webhooks, and containerized microservices.</p>
+
+    <div class="door-switcher" role="navigation" aria-label="Switch between rooms">
+      <div class="dsb-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span>Switch Door:</span>
+      </div>
+      <div class="dsb-pills">
+        
+      <a href="../web-developer/" class="dsb-pill active" title="Backend &amp; Cloud Systems" aria-current="page">
+        <span class="dsb-num">01</span>
+        <span class="dsb-txt">Backend &amp; Cloud</span>
+        <i class="dsb-dot"></i>
+      </a>
+      <a href="../app-developer/" class="dsb-pill" title="AI &amp; Generative Engineering" >
+        <span class="dsb-num">02</span>
+        <span class="dsb-txt">AI &amp; Generative</span>
+        
+      </a>
+      <a href="../ui-ux-designer/" class="dsb-pill" title="Full-Stack Web Systems" >
+        <span class="dsb-num">03</span>
+        <span class="dsb-txt">Full-Stack Web</span>
+        
+      </a>
+      <a href="../graphic-designer/" class="dsb-pill" title="Applied Systems Architecture" >
+        <span class="dsb-num">04</span>
+        <span class="dsb-txt">System Architecture</span>
+        
+      </a>
+      <a href="../photographer/" class="dsb-pill" title="Python Core &amp; Analytics" >
+        <span class="dsb-num">05</span>
+        <span class="dsb-txt">Python Analytics</span>
+        
+      </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Cards Stack -->
+  <section class="stack" id="stack" aria-label="Projects">
+    
+    <article class="card seen on" style="--i:0" aria-labelledby="p0">
+      <div class="card__in">
+        <div class="card__info">
+          <p class="card__meta"><span>FlyRank AI Internship · Production Service</span></p>
+          <h2 id="p0">FlyRank Capstone — Usage Metering &amp; Billing Engine</h2>
+          <p class="sub">High-Throughput Token Metering &amp; Stripe Webhook Pipeline</p>
+          <p class="desc">A production backend service that tracks billable API calls and AI token usage, enforces tenant-based quotas, and calculates usage costs across cached, reasoning, and output tokens. Features idempotency keys preventing double-billing on client retries, deterministic 402/429 quota enforcement, live /usage rollups, and Stripe webhook deduplication.</p>
+          <ul class="tags"><li>Node.js</li><li>Express</li><li>PostgreSQL</li><li>Stripe API</li><li>Docker</li><li>Idempotency</li></ul>
+          <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="https://github.com/rdivyatej-cloud/flyrank-capstone-metering-billing" target="_blank" rel="noopener noreferrer" class="chip" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 500; font-size: 0.85rem; padding: 0.6rem 1.1rem; border-radius: 999px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--card-line); color: var(--fg); transition: background 0.2s, transform 0.2s;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <span>Inspect GitHub Repository →</span>
+            </a>
+          </div>
+        </div>
+        <div class="stage" aria-hidden="true">
+          <div class="mon">
+            <div class="mon__body">
+              <div class="mon__screen" style="background: #0d0c0c; display: flex; flex-direction: column; padding: 1.2rem; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.74rem; color: #a19c96; line-height: 1.5; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+                <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.6rem; margin-bottom: 0.75rem;">
+                  <div style="display: flex; gap: 6px;">
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #ff5f56;"></span>
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #ffbd2e;"></span>
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #27c93f;"></span>
+                  </div>
+                  <span style="color: #00e5ff; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;">METERING_CORE</span>
+                  <span style="color: rgba(255,255,255,0.4); font-size: 0.65rem;">v2.4.0</span>
+                </div>
+                <div style="flex: 1; overflow-y: auto; overflow-x: auto;">
+                  <pre style="margin: 0; color: #eae7e3; font-family: inherit; font-size: 0.72rem; line-height: 1.55;"><code>// Idempotent Metering Record Pipeline
+app.post('/api/v1/meter/event', idempotencyMiddleware, async (req, res) =&gt; {
+  const { tenantId, eventId, tokenUsage, modelTier } = req.body;
+  const cost = calculateUsageRate(modelTier, tokenUsage);
+  await db.transaction(async (trx) =&gt; {
+    await quotaService.verifyAndDeduct(trx, tenantId, cost);
+    await billingService.recordLedger(trx, {
+      eventId, tenantId, cost, timestamp: new Date()
+    });
+  });
+  return res.status(200).json({ status: 'recorded', cost });
+});</code></pre>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 0.5rem; margin-top: 0.6rem; font-size: 0.65rem; color: rgba(255,255,255,0.45);">
+                  <span>STATUS: 200 OK</span>
+                  <span>LATENCY: 14ms</span>
+                  <span>DOCKER: CONTAINER_ACTIVE</span>
+                </div>
+              </div>
+            </div>
+            <div class="mon__neck"></div>
+            <div class="mon__foot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card__dim"></div>
+    </article>
+
+    <article class="card flip seen on" style="--i:1" aria-labelledby="p1">
+      <div class="card__in">
+        <div class="card__info">
+          <p class="card__meta"><span>Backend Systems · Clean Architecture</span></p>
+          <h2 id="p1">Smart Expense Tracker — AI Financial Insights</h2>
+          <p class="sub">MVC-Structured Financial Platform &amp; AI Engine</p>
+          <p class="desc">Full-stack backend in an MVC pattern with JWT authentication (bcrypt hashing), protected REST endpoints, category rollups, automated monthly summaries scheduled via node-cron, and PDF expense statements rendered server-side via PDFKit.</p>
+          <ul class="tags"><li>Node.js</li><li>Express</li><li>PostgreSQL</li><li>JWT Auth</li><li>Docker</li><li>pdfkit</li></ul>
+          <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="https://github.com/rdivyatej-cloud/10x-flyrank" target="_blank" rel="noopener noreferrer" class="chip" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 500; font-size: 0.85rem; padding: 0.6rem 1.1rem; border-radius: 999px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--card-line); color: var(--fg); transition: background 0.2s, transform 0.2s;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <span>Inspect GitHub Repository →</span>
+            </a>
+          </div>
+        </div>
+        <div class="stage" aria-hidden="true">
+          <div class="mon">
+            <div class="mon__body">
+              <div class="mon__screen" style="background: #0d0c0c; display: flex; flex-direction: column; padding: 1.2rem; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.74rem; color: #a19c96; line-height: 1.5; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+                <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.6rem; margin-bottom: 0.75rem;">
+                  <div style="display: flex; gap: 6px;">
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #ff5f56;"></span>
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #ffbd2e;"></span>
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #27c93f;"></span>
+                  </div>
+                  <span style="color: #38bdf8; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;">FINANCE_ENGINE</span>
+                  <span style="color: rgba(255,255,255,0.4); font-size: 0.65rem;">v2.4.0</span>
+                </div>
+                <div style="flex: 1; overflow-y: auto; overflow-x: auto;">
+                  <pre style="margin: 0; color: #eae7e3; font-family: inherit; font-size: 0.72rem; line-height: 1.55;"><code>// Scheduled Monthly Statement Generator
+cron.schedule('0 0 1 * *', async () =&gt; {
+  const users = await userService.getActiveUsers();
+  for (const user of users) {
+    const reportData = await expenseService.getMonthlySummary(user.id);
+    const pdfBuffer = await pdfGenerator.createStatement(reportData);
+    await emailService.sendStatement(user.email, pdfBuffer);
+  }
+});</code></pre>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 0.5rem; margin-top: 0.6rem; font-size: 0.65rem; color: rgba(255,255,255,0.45);">
+                  <span>STATUS: 200 OK</span>
+                  <span>LATENCY: 14ms</span>
+                  <span>DOCKER: CONTAINER_ACTIVE</span>
+                </div>
+              </div>
+            </div>
+            <div class="mon__neck"></div>
+            <div class="mon__foot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card__dim"></div>
+    </article>
+
+    <article class="card seen on" style="--i:2" aria-labelledby="p2">
+      <div class="card__in">
+        <div class="card__info">
+          <p class="card__meta"><span>Production REST APIs · Clean Architecture</span></p>
+          <h2 id="p2">Task API CRUD with Relational Persistence</h2>
+          <p class="sub">Relational Persistence &amp; Defensive Middleware</p>
+          <p class="desc">Complete CRUD API with PostgreSQL connection pooling, schema validation, structured error handling, OpenAPI/Swagger specifications, and Docker Compose orchestration.</p>
+          <ul class="tags"><li>Node.js</li><li>Express</li><li>PostgreSQL</li><li>Docker</li><li>REST APIs</li></ul>
+          <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="https://github.com/rdivyatej-cloud/task-api-crud" target="_blank" rel="noopener noreferrer" class="chip" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 500; font-size: 0.85rem; padding: 0.6rem 1.1rem; border-radius: 999px; background: rgba(var(--fg-rgb), 0.06); border: 1px solid var(--card-line); color: var(--fg); transition: background 0.2s, transform 0.2s;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <span>Inspect GitHub Repository →</span>
+            </a>
+          </div>
+        </div>
+        <div class="stage" aria-hidden="true">
+          <div class="mon">
+            <div class="mon__body">
+              <div class="mon__screen" style="background: #0d0c0c; display: flex; flex-direction: column; padding: 1.2rem; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.74rem; color: #a19c96; line-height: 1.5; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+                <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.6rem; margin-bottom: 0.75rem;">
+                  <div style="display: flex; gap: 6px;">
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #ff5f56;"></span>
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #ffbd2e;"></span>
+                    <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #27c93f;"></span>
+                  </div>
+                  <span style="color: #60a5fa; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;">REST_SERVICE</span>
+                  <span style="color: rgba(255,255,255,0.4); font-size: 0.65rem;">v2.4.0</span>
+                </div>
+                <div style="flex: 1; overflow-y: auto; overflow-x: auto;">
+                  <pre style="margin: 0; color: #eae7e3; font-family: inherit; font-size: 0.72rem; line-height: 1.55;"><code>// Dockerized Relational Service
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+app.get('/health', (req, res) =&gt; res.json({ status: 'healthy', timestamp: Date.now() }));
+app.post('/api/tasks', validateSchema(taskSchema), async (req, res) =&gt; {
+  const { title, priority, ownerId } = req.body;
+  const result = await pool.query(
+    'INSERT INTO tasks (title, priority, owner_id) VALUES ($1, $2, $3) RETURNING *',
+    [title, priority, ownerId]
+  );
+  res.status(201).json(result.rows[0]);
+});</code></pre>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 0.5rem; margin-top: 0.6rem; font-size: 0.65rem; color: rgba(255,255,255,0.45);">
+                  <span>STATUS: 200 OK</span>
+                  <span>LATENCY: 14ms</span>
+                  <span>DOCKER: CONTAINER_ACTIVE</span>
+                </div>
+              </div>
+            </div>
+            <div class="mon__neck"></div>
+            <div class="mon__foot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card__dim"></div>
+    </article>
+  </section>
+
+  <!-- Bottom Previous / Next Room Transition Navigator -->
+  <nav class="room-nav" aria-label="Adjacent rooms">
+    <a href="../photographer/" class="rnc prev" title="Go to Python Core &amp; Analytics">
+      <span class="rnc-dir">← Previous Door (05)</span>
+      <span class="rnc-title">Python Core &amp; Analytics</span>
+      <span class="rnc-sub">Algorithms, data structures, and progress engines</span>
+    </a>
+    <a href="../#doors" class="room-nav-all" title="View all 5 doors">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
+      <span>All 5 Doors</span>
+    </a>
+    <a href="../app-developer/" class="rnc next" title="Go to AI &amp; Generative Engineering">
+      <span class="rnc-dir">Next Door (02) →</span>
+      <span class="rnc-title">AI &amp; Generative Engineering</span>
+      <span class="rnc-sub">Production LLMs, prompt pipelines, and Gemini API</span>
+    </a>
+  </nav>
+</main>
+
+<footer class="sf">
+  <div class="sf__in">
+    <p class="sf__eye"><i></i>Available for new opportunities</p>
+    <h2 class="sf__h">Need scalable systems built?<span>Let's collaborate.</span></h2>
+    <p class="sf__p">Backend engineering, distributed token metering pipelines, AI model integration, and cloud architectures. Tell me what you need and I'll get back to you promptly.</p>
+    <div class="sf__cta">
+      <a href="../#contact" class="sf__btn">Hire me <b>→</b></a>
+      <a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf" class="chip" style="font-size: 14px; padding: 12px 24px;">Download CV (PDF)</a>
+    </div>
+    <div class="sf__cols">
+      <div><h3>All Doors</h3><ul><li><a href="../web-developer/">01. Backend & Cloud</a></li><li><a href="../app-developer/">02. AI & Generative</a></li><li><a href="../ui-ux-designer/">03. Full-Stack Web</a></li><li><a href="../graphic-designer/">04. System Architecture</a></li><li><a href="../photographer/">05. Python Analytics</a></li></ul></div>
+      <div><h3>Navigate</h3><ul><li><a href="../">Home</a></li><li><a href="../#about">My story</a></li><li><a href="../#contact">Contact</a></li><li><a href="../assets/resumedt.pdf" download="Divyatej_Rallapalli_CV.pdf">Download CV (PDF)</a></li></ul></div>
+      <div><h3>Status</h3><ul><li>Available for work</li><li>SRM University–AP, India</li><li>CGPA: 7.5 · CSE (Cybersecurity)</li></ul></div>
+    </div>
+    <div class="sf__bot"><span>© 2026 Divyatej Rallapalli. Built with high precision.</span><span><a href="../#home" style="color:inherit;text-decoration:none">Back to top ↑</a></span></div>
+  </div>
+</footer>
+
+<script>
+// Keep theme in sync with parent page or localStorage
+try {
+  const m = localStorage.getItem('tej-mode') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  if (m === 'dark') document.documentElement.dataset.mode = 'dark';
+} catch (e) {}
+
+// Stacking cards animation & immediate visibility
+const cards = [...document.querySelectorAll('.card')];
+cards.forEach(c => c.classList.add('seen', 'on'));
+
+function updateStack() {
+  cards.forEach((c, i) => {
+    const next = cards[i + 1];
+    let p = 0;
+    if (next) {
+      const top = parseFloat(getComputedStyle(c).top);
+      const h = c.offsetHeight;
+      p = Math.min(1, Math.max(0, (top + h - next.getBoundingClientRect().top) / h));
+    }
+    c.style.transform = p ? `scale(${(1 - p * 0.05).toFixed(4)})` : '';
+    const dim = c.querySelector('.card__dim');
+    if (dim) dim.style.opacity = (p * 0.35).toFixed(3);
+  });
+}
+window.addEventListener('scroll', updateStack, { passive: true });
+updateStack();
+
+// Keyboard shortcuts for door switching (ArrowLeft/Right or numbers 1-5)
+window.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowLeft') {
+    location.href = '../photographer/';
+  } else if (e.key === 'ArrowRight') {
+    location.href = '../app-developer/';
+  } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
+    const doors = ['web-developer', 'app-developer', 'ui-ux-designer', 'graphic-designer', 'photographer'];
+    location.href = '../' + doors[parseInt(e.key) - 1] + '/';
+  }
+});
+</script>
+</body>
+</html>

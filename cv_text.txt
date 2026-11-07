@@ -1,0 +1,83 @@
+DIVYATEJ RALLAPALLI
+Backend & AI Engineer  •  Software Engineering  •  Cybersecurity
+[City, State], India  |  
+rdivyatej@gmail.com
+  |  +91 7259175577  |  
+linkedin.com/in/divyatej2007
+  |  
+github.com/rdivyatej-cloud
+  |  
+Portfolio
+PROFESSIONAL SUMMARY
+Backend & AI Engineer and Computer Science (Cybersecurity) undergraduate at SRM University–AP, with production experience from a Backend & AI Engineering internship at FlyRank AI and five end-to-end projects spanning backend systems, full-stack apps, and AI/LLM integration. Proficient in Python, Node.js, REST APIs, PostgreSQL/SQL, JavaScript, and Docker, with a strong foundation in data structures, OOP, database design, and secure software development. Solved 100+ competitive programming problems and shipped a production capstone system for usage metering and billing serving [X] simulated SaaS customers. Seeking backend or AI engineering roles building reliable, scalable systems.
+EXPERIENCE
+Backend & AI Engineering Intern
+  —  FlyRank AI
+	[Month] 2026 – [Month 2026 / Present]
+Shipped [X] backend and AI-integrated features end-to-end using Python, Node.js, and REST APIs in a production codebase, collaborating with a [Y]-engineer team through Git/GitHub-based workflows.
+Built and integrated backend services with structured input validation and robust API error handling, cutting malformed-request failures by [X]% and reducing debugging time on the affected endpoints.
+Connected application logic to AI model/API capabilities, shipping [X] AI-powered workflow(s) that [describe the concrete outcome, e.g., automated a manual task / served Y requests per day].
+Designed and delivered the Usage Metering & Billing Engine capstone for SaaS applications — covering usage tracking, metering logic, and billing workflow architecture — processing [X] simulated usage events with [Y]% billing accuracy in testing.
+Applied professional engineering practices (automated testing, technical documentation, version control, Docker-based environments), raising test coverage to [X]% and standardizing environment setup across the team.
+SELECTED PROJECTS
+FlyRank Capstone: Usage Metering & Billing Engine
+  |  Node.js, Express, PostgreSQL, Stripe API, Docker
+  |  
+GitHub
+Built a backend service that meters billable actions (API calls and AI tokens) and enforces per-tenant quota limits, pricing usage across cached, reasoning, and output token types.
+Implemented idempotency-key-based usage recording so retried requests return the original result instead of double-billing, and exposed a /usage rollup endpoint returning live usage, limit, and cost.
+Integrated Stripe webhooks (test mode) with signature verification and event deduplication to auto-provision plan upgrades on checkout, rejecting forged webhook payloads with a 400.
+Enforced quota limits with 402/429 responses and clear error messaging when tenants exceeded their plan, and containerized the service with Docker Compose plus a seed script for demo data.
+Smart Expense Tracker
+  |  Node.js, Express, PostgreSQL, JWT, Google GenAI SDK (Gemini), pdfkit, Docker
+  |  
+GitHub
+Built a full-stack expense tracker with JWT authentication (bcrypt-hashed passwords) and protected REST endpoints to add, edit, and delete expenses with category-based spending summaries.
+Integrated the Google GenAI SDK (Gemini) to generate AI-powered spending insights from a user's monthly transaction data.
+Automated monthly summary generation with a node-cron background job and built downloadable PDF expense reports via pdfkit.
+Structured the backend in an MVC-inspired pattern (routes, controllers, services, database, jobs) for maintainability, run against a Dockerized PostgreSQL instance.
+FitLife Pulse — Gym Membership & Progress Analytics
+  |  Python, NumPy, Pandas, OOP, Data Structures
+  |  
+GitHub
+Built a Python-based management system covering member registration, trainer workload, workout plans, and attendance for a simulated base of [X] members.
+Implemented recursive calorie aggregation and attendance-based member classification, generating analytics reports with [X]% classification accuracy.
+SubScript — Subscription Optimization & Cost Analyzer
+  |  React, Vite, Recharts, Node.js, Express, MongoDB (Mongoose), JWT, node-cron, Nodemailer
+  |  
+GitHub
+Contributed to a MERN-stack app for tracking and optimizing recurring subscriptions, with JWT authentication (bcrypt hashing) and user-isolated data access.
+Built a spending dashboard (Recharts) visualizing costs by category and monthly-vs-yearly spend, computing normalized monthly spend as active monthly costs plus active yearly costs divided by 12.
+Implemented a node-cron scheduler for automated renewal reminders at 1/3/7 days out via in-app and email (Nodemailer) alerts.
+Added optimization insights — budget-overrun alerts and duplicate-subscription-category detection — plus CSV export of subscription data.
+Study-Mate — AI-Powered Study Assistant
+  |  Next.js, TypeScript, React, Gemini AI
+  |  
+GitHub
+Built a Next.js/TypeScript web app integrating Google Gemini to help students process and interact with study material, cutting time to summarize [X]-page materials to under [Y] minutes.
+Structured a modular front-end architecture with a documented build process and test assets to support iterative development.
+TECHNICAL SKILLS
+Languages: 
+Python, JavaScript, C++, C, SQL, HTML, CSS
+Backend & APIs: 
+Node.js, Express.js, REST APIs, API Development, MVC Architecture
+Databases: 
+PostgreSQL, SQL, MySQL, MongoDB, Database Design
+AI & Engineering: 
+Artificial Intelligence, Generative AI, LLM Integration, Prompt Engineering
+Tools: 
+Docker, Git, GitHub, Vite, VS Code
+CS Foundations: 
+Data Structures & Algorithms, OOP, System Design, Relational Algebra, Cybersecurity
+EDUCATION
+SRM University–AP
+ — B.Tech, Computer Science Engineering (Cybersecurity)
+	2024 – 2028
+CGPA: 7.5
+Sri Chaitanya, Hormavu, Bangalore
+ — Intermediate / MPC
+CERTIFICATIONS & ACHIEVEMENTS
+Cybersecurity & Prompt Engineering — Infosys Springboard (2025)
+Intro to Cybersecurity — Cisco (2023)
+Google Analytics — Google (2024)
+Solved 100+ programming problems across LeetCode and HackerRank; active in college-level technical events and hackathons.
